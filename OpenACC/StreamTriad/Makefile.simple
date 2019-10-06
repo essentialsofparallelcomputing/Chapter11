@@ -2,22 +2,22 @@ default:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_kern1 StreamT
 all:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_kern1 StreamTriad_kern2
 
 %.o: %.c
-	${CC} -g -O3   -acc -Mpreprocess -Mcuda -Minfo -c $^
+	${CC} -g -O3   -acc -Mpreprocess -Mcuda -Minfo=all,ccff -c $^
 
 StreamTriad: StreamTriad.o timer.o
-	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo $^ -o StreamTriad
+	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo=all,ccff $^ -o StreamTriad
 
 StreamTriad_par1: StreamTriad_par1.o timer.o
-	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo $^ -o StreamTriad_par1
+	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo=all,ccff $^ -o StreamTriad_par1
 
 StreamTriad_par2: StreamTriad_par2.o timer.o
-	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo $^ -o StreamTriad_par2
+	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo=all,ccff $^ -o StreamTriad_par2
 
 StreamTriad_kern1: StreamTriad_kern1.o timer.o
-	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo $^ -o StreamTriad_kern1
+	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo=all,ccff $^ -o StreamTriad_kern1
 
 StreamTriad_kern2: StreamTriad_kern2.o timer.o
-	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo $^ -o StreamTriad_kern2
+	${CC} -g -O3    -acc -Mpreprocess -Mcuda -Minfo=all,ccff $^ -o StreamTriad_kern2
 
 clean:
 	rm -f StreamTriad StreamTriad.o

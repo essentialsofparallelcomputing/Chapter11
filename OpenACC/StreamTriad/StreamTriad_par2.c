@@ -12,10 +12,11 @@ int main(int argc, char *argv[]){
    double *b = malloc(nsize * sizeof(double));
    double *c = malloc(nsize * sizeof(double));
 
+#pragma acc enter data create(a[0:nsize],b[0:nsize],c[0:nsize])
+
    struct timespec tstart;
    // initializing data and arrays
    double scalar = 3.0, time_sum = 0.0;
-#pragma acc enter data create(a[0:nsize],b[0:nsize],c[0:nsize])
 #pragma acc parallel loop present(a[0:nsize],b[0:nsize])
    for (int i=0; i<nsize; i++) {
       a[i] = 1.0;
