@@ -15,6 +15,7 @@
 # ::
 #
 #    OpenACC_C_FLAGS - flags to add to the C compiler for OpenACC support
+#    OpenACC_C_VERBOSE - flags for more verbosity in compiler output
 #    OPENACC_FOUND - true if openmp is detected
 #
 # Supported compilers can be found at
@@ -92,6 +93,13 @@ if(CMAKE_C_COMPILER_LOADED)
 
   list(APPEND _OPENACC_REQUIRED_VARS OpenACC_C_FLAGS)
   unset(OpenACC_C_FLAG_CANDIDATES)
+
+  if (CMAKE_C_COMPILER_ID MATCHES "PGI")
+     set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=all,ccff")
+  elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
+     set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -fopt-info-optimized-omp")
+  endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
+
 endif()
 
 set(CMAKE_REQUIRED_QUIET ${CMAKE_REQUIRED_QUIET_SAVE})

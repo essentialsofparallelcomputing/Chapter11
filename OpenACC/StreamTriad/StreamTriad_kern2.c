@@ -15,8 +15,8 @@ int main(int argc, char *argv[]){
    struct timespec tstart;
    // initializing data and arrays
    double scalar = 3.0, time_sum = 0.0;
-#pragma acc enter data create(a[0:20000000],b[0:20000000],c[0:20000000])
-#pragma acc kernels present(a[0:20000000],b[0:20000000])
+#pragma acc enter data create(a[0:nsize],b[0:nsize],c[0:nsize])
+#pragma acc kernels present(a[0:nsize],b[0:nsize])
    {
 #pragma acc loop independent
       for (int i=0; i<nsize; i++) {
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
    for (int k=0; k<ntimes; k++){
       cpu_timer_start(&tstart);
       // stream triad loop 
-#pragma acc kernels present(a[0:20000000],b[0:20000000],c[0:20000000])
+#pragma acc kernels present(a[0:nsize],b[0:nsize],c[0:nsize])
       {
 #pragma acc loop independent
          for (int i=0; i<nsize; i++){
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 
    printf("Average runtime for stream triad function call is %lf msecs\n", time_sum/ntimes);
 
-#pragma acc exit data delete(a[0:20000000],b[0:20000000],c[0:20000000])
+#pragma acc exit data delete(a[0:nsize],b[0:nsize],c[0:nsize])
 
    free(a);
    free(b);
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
 }
 
 void StreamTriad(double *restrict c, double *restrict a, double *restrict b, double scalar, int nsize){
-#pragma acc kernels present(a[0:20000000],b[0:20000000],c[0:20000000])
+#pragma acc kernels present(a[0:nsize],b[0:nsize],c[0:nsize])
    {
 #pragma acc loop independent
       for (int i=0; i<nsize; i++){

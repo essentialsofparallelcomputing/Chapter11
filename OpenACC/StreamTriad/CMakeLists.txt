@@ -29,11 +29,7 @@ if (OPENACC_ENABLED)
     endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
 
     if (CMAKE_OPENACC_VERBOSE)
-        if (CMAKE_C_COMPILER_ID MATCHES "PGI")
-            set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} -Minfo")
-        elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
-            set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} -fopt-info-optimized-omp")
-        endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
+        set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} ${OpenACC_C_VERBOSE}")
     endif (CMAKE_OPENACC_VERBOSE)
 endif (OPENACC_ENABLED)
 
