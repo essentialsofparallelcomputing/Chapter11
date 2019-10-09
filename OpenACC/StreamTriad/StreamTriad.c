@@ -33,26 +33,9 @@ int main(int argc, char *argv[]){
 
    printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
 
-   for (int k=0; k<ntimes; k++){
-      cpu_timer_start(&tstart);
-      // stream triad function call
-      StreamTriad(c, a, b, scalar, nsize);
-      time_sum += cpu_timer_stop(tstart);
-      // to keep the compiler from optimizing out the loop
-      c[1]=c[2];
-   }
-
-   printf("Average runtime for stream triad function call is %lf msecs\n", time_sum/ntimes);
-
    free(a);
    free(b);
    free(c);
 
    return(0);
-}
-
-void StreamTriad(double *restrict c, double *restrict a, double *restrict b, double scalar, int nsize){
-   for (int i=0; i<nsize; i++){
-      c[i] = a[i] + scalar*b[i];
-   }
 }

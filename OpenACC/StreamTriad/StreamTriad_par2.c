@@ -35,15 +35,6 @@ int main(int argc, char *argv[]){
 
    printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
 
-   for (int k=0; k<ntimes; k++){
-      cpu_timer_start(&tstart);
-      // stream triad function call
-      StreamTriad(c, a, b, scalar, nsize);
-      time_sum += cpu_timer_stop(tstart);
-   }
-
-   printf("Average runtime for stream triad function call is %lf msecs\n", time_sum/ntimes);
-
 #pragma acc exit data delete(a[0:nsize],b[0:nsize],c[0:nsize])
 
    free(a);
@@ -51,11 +42,4 @@ int main(int argc, char *argv[]){
    free(c);
 
    return(0);
-}
-
-void StreamTriad(double *restrict c, double *restrict a, double *restrict b, double scalar, int nsize){
-#pragma acc parallel loop present(a[0:nsize],b[0:nsize],c[0:nsize])
-   for (int i=0; i<nsize; i++){
-      c[i] = a[i] + scalar*b[i];
-   }
 }
