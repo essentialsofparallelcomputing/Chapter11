@@ -1,0 +1,81 @@
+Scanning dependencies of target StreamTriad_kern2
+[  6%] Building C object CMakeFiles/StreamTriad_kern2.dir/StreamTriad_kern2.c.o
+main:
+     15, Generating enter data create(b[:20000000],c[:20000000],a[:20000000])
+     20, Generating present(b[:20000000],a[:20000000])
+     23, Loop is parallelizable
+         Generating Tesla code
+         23, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     29, Loop not vectorized/parallelized: contains call
+     32, Generating present(a[:20000000],c[:20000000],b[:20000000])
+     35, Loop is parallelizable
+         Generating Tesla code
+         35, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     44, Generating exit data delete(c[:20000000],b[:20000000],a[:20000000])
+[ 13%] Building C object CMakeFiles/StreamTriad_kern2.dir/timer.c.o
+[ 20%] Linking C executable StreamTriad_kern2
+[ 20%] Built target StreamTriad_kern2
+Scanning dependencies of target StreamTriad_kern1
+[ 26%] Building C object CMakeFiles/StreamTriad_kern1.dir/StreamTriad_kern1.c.o
+main:
+     18, Generating implicit copyout(a[:20000000],b[:20000000]) [if not already present]
+     21, Loop is parallelizable
+         Generating Tesla code
+         21, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     27, Loop not vectorized/parallelized: contains call
+     30, Generating implicit copyout(c[:20000000]) [if not already present]
+         Generating implicit copyin(b[:20000000],a[:20000000]) [if not already present]
+     33, Loop is parallelizable
+         Generating Tesla code
+         33, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+[ 33%] Building C object CMakeFiles/StreamTriad_kern1.dir/timer.c.o
+[ 40%] Linking C executable StreamTriad_kern1
+[ 40%] Built target StreamTriad_kern1
+Scanning dependencies of target StreamTriad_par2
+[ 46%] Building C object CMakeFiles/StreamTriad_par2.dir/StreamTriad_par2.c.o
+main:
+     15, Generating enter data create(c[:20000000],b[:20000000],a[:20000000])
+     20, Generating present(b[:20000000],a[:20000000])
+         Generating Tesla code
+         21, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     26, Loop not vectorized/parallelized: contains call
+     29, Generating present(a[:20000000],c[:20000000],b[:20000000])
+         Generating Tesla code
+         30, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     38, Generating exit data delete(c[:20000000],b[:20000000],a[:20000000])
+[ 53%] Building C object CMakeFiles/StreamTriad_par2.dir/timer.c.o
+cpu_timer_stop:
+     17, FMA (fused multiply-add) instruction(s) generated
+[ 60%] Linking C executable StreamTriad_par2
+[ 60%] Built target StreamTriad_par2
+Scanning dependencies of target StreamTriad_par1
+[ 66%] Building C object CMakeFiles/StreamTriad_par1.dir/StreamTriad_par1.c.o
+main:
+     18, Generating Tesla code
+         19, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     18, Generating implicit copyout(b[:20000000],a[:20000000]) [if not already present]
+     24, Loop not vectorized/parallelized: contains call
+     27, Generating Tesla code
+         28, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     27, Generating implicit copyout(c[:20000000]) [if not already present]
+         Generating implicit copyin(b[:20000000],a[:20000000]) [if not already present]
+[ 73%] Building C object CMakeFiles/StreamTriad_par1.dir/timer.c.o
+cpu_timer_stop:
+     17, FMA (fused multiply-add) instruction(s) generated
+[ 80%] Linking C executable StreamTriad_par1
+[ 80%] Built target StreamTriad_par1
+Scanning dependencies of target StreamTriad
+[ 86%] Building C object CMakeFiles/StreamTriad.dir/StreamTriad.c.o
+main:
+     18, Loop not vectorized: data dependency
+         Generated vector simd code for the loop
+         Loop unrolled 8 times
+     23, Loop not vectorized/parallelized: contains call
+         FMA (fused multiply-add) instruction(s) generated
+     26, Loop not vectorized: data dependency
+         Generated vector simd code for the loop
+         FMA (fused multiply-add) instruction(s) generated
+         Loop unrolled 4 times
+[ 93%] Building C object CMakeFiles/StreamTriad.dir/timer.c.o
+[100%] Linking C executable StreamTriad
+[100%] Built target StreamTriad
