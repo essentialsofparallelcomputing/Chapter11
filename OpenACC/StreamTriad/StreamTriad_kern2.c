@@ -3,8 +3,6 @@
 #include <time.h>
 #include "timer.h"
 
-void StreamTriad(double *restrict c, double *restrict a, double *restrict b, double scalar, int nsize);
-
 int main(int argc, char *argv[]){
 
    int nsize = 20000000, ntimes=16;
