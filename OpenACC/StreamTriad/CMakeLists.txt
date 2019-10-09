@@ -35,31 +35,26 @@ endif (OPENACC_ENABLED)
 
 # Adds build target of stream_triad with source code files
 add_executable(StreamTriad StreamTriad.c timer.c timer.h)
-target_compile_definitions(StreamTriad PRIVATE HAVE_OPENACC)
 set_source_files_properties(StreamTriad.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par1 with source code files
 add_executable(StreamTriad_par1 StreamTriad_par1.c timer.c timer.h)
-target_compile_definitions(StreamTriad_par1 PRIVATE HAVE_OPENACC)
 set_target_properties(StreamTriad_par1 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par1 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par2 with source code files
 add_executable(StreamTriad_par2 StreamTriad_par2.c timer.c timer.h)
-target_compile_definitions(StreamTriad_par2 PRIVATE HAVE_OPENACC)
 set_target_properties(StreamTriad_par2 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_kern1 with source code files
 add_executable(StreamTriad_kern1 StreamTriad_kern1.c timer.c timer.h)
-target_compile_definitions(StreamTriad_kern1 PRIVATE HAVE_OPENACC)
 set_source_files_properties(StreamTriad_kern1.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_kern1 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_kern2 with source code files
 add_executable(StreamTriad_kern2 StreamTriad_kern2.c timer.c timer.h)
-target_compile_definitions(StreamTriad_kern2 PRIVATE HAVE_OPENACC)
 set_source_files_properties(StreamTriad_kern2.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_kern2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
