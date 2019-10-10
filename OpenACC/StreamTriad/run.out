@@ -1,99 +1,38 @@
-./run.sh 
 Running StreamTriad
-Average runtime for stream triad loop is 0.040626 msecs
-
-Running StreamTriad_par1
-Average runtime for stream triad loop is 0.117520 msecs
-
-Accelerator Kernel Timing data
-/home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par1.c
-  main  NVIDIA  devicenum=0
-    time(us): 1,167,961
-    18: compute region reached 1 time
-        18: kernel launched 1 time
-            grid: [65535]  block: [128]
-             device time(us): total=361 max=361 min=361 avg=361
-            elapsed time(us): total=838 max=838 min=838 avg=838
-    18: data region reached 2 times
-        24: data copyout transfers: 20
-             device time(us): total=122,067 max=6,432 min=3,500 avg=6,103
-    27: compute region reached 16 times
-        27: kernel launched 16 times
-            grid: [65535]  block: [128]
-             device time(us): total=9,147 max=573 min=571 avg=571
-            elapsed time(us): total=10,125 max=681 min=625 avg=632
-    27: data region reached 32 times
-        27: data copyin transfers: 320
-             device time(us): total=417,324 max=3,014 min=735 avg=1,304
-        31: data copyout transfers: 160
-             device time(us): total=619,062 max=6,887 min=2,062 avg=3,869
+Average runtime for stream triad loop is 0.041196 msecs
 
 Running StreamTriad_kern1
-Average runtime for stream triad loop is 0.115604 msecs
-
-Accelerator Kernel Timing data
-/home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern1.c
-  main  NVIDIA  devicenum=0
-    time(us): 1,161,788
-    18: compute region reached 1 time
-        21: kernel launched 1 time
-            grid: [65535]  block: [128]
-             device time(us): total=361 max=361 min=361 avg=361
-            elapsed time(us): total=793 max=793 min=793 avg=793
-    18: data region reached 2 times
-        27: data copyout transfers: 20
-             device time(us): total=124,724 max=6,731 min=3,397 avg=6,236
-    30: compute region reached 16 times
-        33: kernel launched 16 times
-            grid: [65535]  block: [128]
-             device time(us): total=9,148 max=573 min=571 avg=571
-            elapsed time(us): total=10,152 max=680 min=628 avg=634
-    30: data region reached 32 times
-        30: data copyin transfers: 320
-             device time(us): total=415,721 max=1,388 min=734 avg=1,299
-        37: data copyout transfers: 160
-             device time(us): total=611,834 max=7,204 min=2,060 avg=3,823
-
-Running StreamTriad_par2
-Average runtime for stream triad loop is 0.000590 msecs
-
-Accelerator Kernel Timing data
-/home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par2.c
-  main  NVIDIA  devicenum=0
-    time(us): 9,448
-    15: data region reached 1 time
-    20: compute region reached 1 time
-        20: kernel launched 1 time
-            grid: [65535]  block: [128]
-             device time(us): total=361 max=361 min=361 avg=361
-            elapsed time(us): total=771 max=771 min=771 avg=771
-    20: data region reached 2 times
-    29: compute region reached 16 times
-        29: kernel launched 16 times
-            grid: [65535]  block: [128]
-             device time(us): total=9,087 max=569 min=567 avg=567
-            elapsed time(us): total=9,376 max=591 min=585 avg=586
-    29: data region reached 32 times
-    38: data region reached 1 time
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern1.c
+        function: main
+        line:     16
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
 
 Running StreamTriad_kern2
-Average runtime for stream triad loop is 0.000592 msecs
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern2.c
+        function: main
+        line:     16
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
 
-Accelerator Kernel Timing data
-/home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern2.c
-  main  NVIDIA  devicenum=0
-    time(us): 9,447
-    15: data region reached 1 time
-    20: compute region reached 1 time
-        23: kernel launched 1 time
-            grid: [65535]  block: [128]
-             device time(us): total=361 max=361 min=361 avg=361
-            elapsed time(us): total=799 max=799 min=799 avg=799
-    20: data region reached 2 times
-    32: compute region reached 16 times
-        35: kernel launched 16 times
-            grid: [65535]  block: [128]
-             device time(us): total=9,086 max=569 min=567 avg=567
-            elapsed time(us): total=9,395 max=593 min=586 avg=587
-    32: data region reached 32 times
-    44: data region reached 1 time
+Running StreamTriad_kern2
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern2.c
+        function: main
+        line:     16
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
+
+Running StreamTriad_par1
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par1.c
+        function: main
+        line:     16
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
+
+Running StreamTriad_par2
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par2.c
+        function: main
+        line:     19
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
+
+Running StreamTriad_par3
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par3.c
+        function: main
+        line:     18
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
