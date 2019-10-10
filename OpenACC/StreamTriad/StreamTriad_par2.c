@@ -10,7 +10,8 @@ int main(int argc, char *argv[]){
    double *b = malloc(nsize * sizeof(double));
    double *c = malloc(nsize * sizeof(double));
 
-#pragma acc enter data create(a[0:nsize],b[0:nsize],c[0:nsize])
+#pragma acc data create(a[0:nsize],b[0:nsize],c[0:nsize])
+   {
 
    struct timespec tstart;
    // initializing data and arrays
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]){
 
    printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
 
-#pragma acc exit data delete(a[0:nsize],b[0:nsize],c[0:nsize])
+   } //#pragma acc exit data delete(a[0:nsize],b[0:nsize],c[0:nsize])
 
    free(a);
    free(b);

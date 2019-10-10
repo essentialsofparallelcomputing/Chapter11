@@ -11,15 +11,21 @@ export GOMP_DEBUG=1
 echo "Running StreamTriad"
 ./StreamTriad
 echo ""
-echo "Running StreamTriad_par1"
-./StreamTriad_par1
-echo ""
 echo "Running StreamTriad_kern1"
 ./StreamTriad_kern1
+echo ""
+echo "Running StreamTriad_kern2"
+./StreamTriad_kern2
+echo ""
+echo "Running StreamTriad_kern2"
+./StreamTriad_kern2
+echo ""
+echo "Running StreamTriad_par1"
+./StreamTriad_par1
 echo ""
 echo "Running StreamTriad_par2"
 ./StreamTriad_par2
 echo ""
-echo "Running StreamTriad_kern2"
-./StreamTriad_kern2
+echo "Running StreamTriad_par3"
+./StreamTriad_par3
 
