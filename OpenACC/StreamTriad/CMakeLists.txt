@@ -11,7 +11,6 @@ if (NOT CMAKE_OPENACC_VERBOSE)
     set(CMAKE_OPENACC_VERBOSE true)
 endif (NOT CMAKE_OPENACC_VERBOSE)
 
-include(CheckCSourceCompiles)
 find_package(OpenACC)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")

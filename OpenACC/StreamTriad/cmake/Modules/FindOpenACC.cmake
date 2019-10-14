@@ -22,6 +22,7 @@
 # http://www.openacc.org/content/tools
 include(FindPackageHandleStandardArgs)
 #include(CheckCCompilerFlag)
+include(CheckCSourceCompiles)
 
 set(_OPENACC_REQUIRED_VARS)
 set(CMAKE_REQUIRED_QUIET_SAVE ${CMAKE_REQUIRED_QUIET})
