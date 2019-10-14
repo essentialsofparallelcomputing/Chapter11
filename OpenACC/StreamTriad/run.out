@@ -1,5 +1,5 @@
 Running StreamTriad
-Average runtime for stream triad loop is 0.041196 msecs
+Average runtime for stream triad loop is 0.037969 msecs
 
 Running StreamTriad_kern1
 Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_kern1.c
@@ -35,4 +35,10 @@ Running StreamTriad_par3
 Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par3.c
         function: main
         line:     18
+This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70
+
+Running StreamTriad_par4
+Current file:     /home/brobey/EssentialsofParallelComputing/Chapter11/OpenACC/StreamTriad/StreamTriad_par4.c
+        function: main
+        line:     17
 This file was compiled: -ta=tesla:cc30,cc35,cc50,cc60,cc70

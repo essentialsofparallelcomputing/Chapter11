@@ -28,4 +28,6 @@ echo "Running StreamTriad_par2"
 echo ""
 echo "Running StreamTriad_par3"
 ./StreamTriad_par3
-
+echo ""
+echo "Running StreamTriad_par4"
+./StreamTriad_par4
