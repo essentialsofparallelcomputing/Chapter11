@@ -1,9 +1,7 @@
-Scanning dependencies of target StreamTriad
 [  4%] Building C object CMakeFiles/StreamTriad.dir/StreamTriad.c.o
 [  8%] Building C object CMakeFiles/StreamTriad.dir/timer.c.o
 [ 12%] Linking C executable StreamTriad
 [ 12%] Built target StreamTriad
-Scanning dependencies of target StreamTriad_par1
 [ 16%] Building C object CMakeFiles/StreamTriad_par1.dir/StreamTriad_par1.c.o
 main:
      16, Generating Tesla code
@@ -16,7 +14,6 @@ main:
 [ 20%] Building C object CMakeFiles/StreamTriad_par1.dir/timer.c.o
 [ 25%] Linking C executable StreamTriad_par1
 [ 25%] Built target StreamTriad_par1
-Scanning dependencies of target StreamTriad_par2
 [ 29%] Building C object CMakeFiles/StreamTriad_par2.dir/StreamTriad_par2.c.o
 main:
      13, Generating create(a[:nsize],c[:nsize],b[:nsize]) [if not already present]
@@ -29,7 +26,6 @@ main:
 [ 33%] Building C object CMakeFiles/StreamTriad_par2.dir/timer.c.o
 [ 37%] Linking C executable StreamTriad_par2
 [ 37%] Built target StreamTriad_par2
-Scanning dependencies of target StreamTriad_par4
 [ 41%] Building C object CMakeFiles/StreamTriad_par4.dir/StreamTriad_par4.c.o
 main:
      17, Generating Tesla code
@@ -39,7 +35,6 @@ main:
 [ 45%] Building C object CMakeFiles/StreamTriad_par4.dir/timer.c.o
 [ 50%] Linking C executable StreamTriad_par4
 [ 50%] Built target StreamTriad_par4
-Scanning dependencies of target StreamTriad_par3
 [ 54%] Building C object CMakeFiles/StreamTriad_par3.dir/StreamTriad_par3.c.o
 main:
      13, Generating enter data create(b[:nsize],c[:nsize],a[:nsize])
@@ -53,7 +48,6 @@ main:
 [ 58%] Building C object CMakeFiles/StreamTriad_par3.dir/timer.c.o
 [ 62%] Linking C executable StreamTriad_par3
 [ 62%] Built target StreamTriad_par3
-Scanning dependencies of target StreamTriad_kern2
 [ 66%] Building C object CMakeFiles/StreamTriad_kern2.dir/StreamTriad_kern2.c.o
 main:
      16, Generating implicit copyout(a[:20000000],b[:20000000]) [if not already present]
@@ -69,7 +63,6 @@ main:
 [ 70%] Building C object CMakeFiles/StreamTriad_kern2.dir/timer.c.o
 [ 75%] Linking C executable StreamTriad_kern2
 [ 75%] Built target StreamTriad_kern2
-Scanning dependencies of target StreamTriad_kern1
 [ 79%] Building C object CMakeFiles/StreamTriad_kern1.dir/StreamTriad_kern1.c.o
 main:
      16, Generating implicit copyout(b[:20000000],a[:20000000]) [if not already present]
@@ -88,7 +81,6 @@ main:
 [ 83%] Building C object CMakeFiles/StreamTriad_kern1.dir/timer.c.o
 [ 87%] Linking C executable StreamTriad_kern1
 [ 87%] Built target StreamTriad_kern1
-Scanning dependencies of target StreamTriad_kern3
 [ 91%] Building C object CMakeFiles/StreamTriad_kern3.dir/StreamTriad_kern3.c.o
 main:
      13, Generating enter data create(c[:nsize],b[:nsize],a[:nsize])
