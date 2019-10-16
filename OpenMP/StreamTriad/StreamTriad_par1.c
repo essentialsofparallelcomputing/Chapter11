@@ -41,9 +41,3 @@ int main(int argc, char *argv[]){
 
    return(0);
 }
-
-void StreamTriad(double *restrict c, double *restrict a, double *restrict b, double scalar, int nsize){
-   for (int i=0; i<nsize; i++){
-      c[i] = a[i] + scalar*b[i];
-   }
-}
