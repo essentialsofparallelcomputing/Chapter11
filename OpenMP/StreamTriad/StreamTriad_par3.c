@@ -8,12 +8,11 @@ void StreamTriad(double *restrict c, double *restrict a, double *restrict b, dou
 int main(int argc, char *argv[]){
 
    int nsize = 20000000, ntimes=16;
-   //double *a = malloc(nsize * sizeof(double));
-   //double *b = malloc(nsize * sizeof(double));
-   //double *c = malloc(nsize * sizeof(double));
-   double *a, *b, *c;
+   double *a = malloc(nsize * sizeof(double));
+   double *b = malloc(nsize * sizeof(double));
+   double *c = malloc(nsize * sizeof(double));
 
-#pragma omp target enter data map(alloc:a[0:nsize], b[0:nsize], c[0:nsize])
+#pragma omp target enter data map(to:a[0:nsize], b[0:nsize], c[0:nsize])
 
    struct timespec tstart;
    // initializing data and arrays
@@ -36,14 +35,13 @@ int main(int argc, char *argv[]){
       time_sum += cpu_timer_stop(tstart);
    }
 
-
    printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
 
-#pragma omp target exit data map(delete:a[0:nsize], b[0:nsize], c[0:nsize])
+#pragma omp target exit data map(from:a[0:nsize], b[0:nsize], c[0:nsize])
 
-   //free(a);
-   //free(b);
-   //free(c);
+   free(a);
+   free(b);
+   free(c);
 
    return(0);
 }
