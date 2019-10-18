@@ -4,7 +4,7 @@ export PGI_ACC_TIME=1
 
 
 # GCC environment variables
-export GOMP_DEBUG=1
+#export GOMP_DEBUG=1
 #export ACC_DEVICE_NUM=#
 #export ACC_DEVICE_TYPE=[host|nvidia]
 

@@ -25,27 +25,25 @@ endif (CMAKE_OPENACC_VERBOSE)
 
 # Adds build target of stream_triad with source code files
 add_executable(StreamTriad StreamTriad.c timer.c timer.h)
-set_source_files_properties(StreamTriad.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-set_target_properties(StreamTriad PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par1 with source code files
 add_executable(StreamTriad_par1 StreamTriad_par1.c timer.c timer.h)
-set_target_properties(StreamTriad_par1 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_source_files_properties(StreamTriad_par1.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par1 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par2 with source code files
 add_executable(StreamTriad_par2 StreamTriad_par2.c timer.c timer.h)
-set_target_properties(StreamTriad_par2 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_source_files_properties(StreamTriad_par2.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par3 with source code files
 add_executable(StreamTriad_par3 StreamTriad_par3.c timer.c timer.h)
-set_target_properties(StreamTriad_par3 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_source_files_properties(StreamTriad_par3.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par3 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_par4 with source code files
 add_executable(StreamTriad_par4 StreamTriad_par4.c timer.c timer.h)
-set_target_properties(StreamTriad_par4 PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_source_files_properties(StreamTriad_par4.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_kern1 with source code files
