@@ -3,6 +3,7 @@ default:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_par3 StreamTr
 all:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_par3 StreamTriad_par4 \
    	StreamTriad_kern1 StreamTriad_kern2 StreamTriad_kern3
 
+# may need -foffload=-lm for math functions inside of kernels
 CFLAGS:= -g -O3   -std=gnu99 -fopenacc -fstrict-aliasing  -fopt-info-optimized-omp
 
 %.o: %.c

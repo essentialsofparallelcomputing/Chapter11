@@ -31,12 +31,12 @@ set(CMAKE_REQUIRED_QUIET ${OpenACC_FIND_QUIETLY})
 function(_OPENACC_FLAG_CANDIDATES LANG)
   set(OpenACC_FLAG_CANDIDATES
     #GNU
-    "-fopenacc"
+    "-fopenacc -foffload=-lm"
     #Portland Group, PathScale
     "-acc -Mpreprocess -Mcuda"
   )
 
-  set(ACC_FLAG_GNU "-fopenacc")
+  set(ACC_FLAG_GNU "-fopenacc -foffload=-lm")
   set(ACC_FLAG_PathScale "-acc ")
   set(ACC_FLAG_PGI "-acc -Mpreprocess -Mcuda")
 
