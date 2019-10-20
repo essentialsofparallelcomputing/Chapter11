@@ -1,7 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.10)
 project (StreamTriad)
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 set (CMAKE_C_STANDARD 99)
 
@@ -12,6 +10,13 @@ if (NOT CMAKE_OPENACC_VERBOSE)
 endif (NOT CMAKE_OPENACC_VERBOSE)
 
 find_package(OpenACC)
+
+if (CMAKE_C_COMPILER_ID MATCHES "PGI")
+    #set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=all,ccff")
+    set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=accel")
+elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
+   set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -fopt-info-optimized-omp")
+endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
     set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} -alias=ansi")

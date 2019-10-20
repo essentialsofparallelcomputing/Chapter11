@@ -25,12 +25,9 @@ int main(int argc, char *argv[]){
    for (int k=0; k<ntimes; k++){
       cpu_timer_start(&tstart);
       // stream triad loop 
-#pragma acc kernels
-      {
-#pragma acc loop independent
-         for (int i=0; i<nsize; i++){
-            c[i] = a[i] + scalar*b[i];
-         }
+#pragma acc kernels loop independent
+      for (int i=0; i<nsize; i++){
+         c[i] = a[i] + scalar*b[i];
       }
       time_sum += cpu_timer_stop(tstart);
    }

@@ -15,24 +15,18 @@ int main(int argc, char *argv[]){
    struct timespec tstart;
    // initializing data and arrays
    double scalar = 3.0, time_sum = 0.0;
-#pragma acc kernels present(a[0:nsize],b[0:nsize])
-   {
-#pragma acc loop independent
-      for (int i=0; i<nsize; i++) {
-         a[i] = 1.0;
-         b[i] = 2.0;
-      }
+#pragma acc kernels loop present(a[0:nsize],b[0:nsize])
+   for (int i=0; i<nsize; i++) {
+      a[i] = 1.0;
+      b[i] = 2.0;
    }
 
    for (int k=0; k<ntimes; k++){
       cpu_timer_start(&tstart);
       // stream triad loop 
-#pragma acc kernels present(a[0:nsize],b[0:nsize],c[0:nsize])
-      {
-#pragma acc loop independent
-         for (int i=0; i<nsize; i++){
-            c[i] = a[i] + scalar*b[i];
-         }
+#pragma acc kernels loop present(a[0:nsize],b[0:nsize],c[0:nsize])
+      for (int i=0; i<nsize; i++){
+        c[i] = a[i] + scalar*b[i];
       }
       time_sum += cpu_timer_stop(tstart);
    }
