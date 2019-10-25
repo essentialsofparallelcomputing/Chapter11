@@ -51,6 +51,11 @@ add_executable(StreamTriad_par4 StreamTriad_par4.c timer.c timer.h)
 set_source_files_properties(StreamTriad_par4.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
+# Adds build target of stream_triad_par5 with source code files
+add_executable(StreamTriad_par5 StreamTriad_par5.c timer.c timer.h)
+set_source_files_properties(StreamTriad_par5.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_target_properties(StreamTriad_par5 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
+
 # Adds build target of stream_triad_kern1 with source code files
 add_executable(StreamTriad_kern1 StreamTriad_kern1.c timer.c timer.h)
 set_source_files_properties(StreamTriad_kern1.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")

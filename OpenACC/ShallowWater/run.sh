@@ -19,29 +19,18 @@ export PGI_ACC_TIME=1
 #    can also be specified as a compiler flag
 #export ACC_DEVICE_TYPE=[host|nvidia]
 
-#echo "Running StreamTriad"
-#./StreamTriad
-#echo ""
-#echo "Running StreamTriad_kern1"
-#./StreamTriad_kern1
-#echo ""
-#echo "Running StreamTriad_kern2"
-#./StreamTriad_kern2
-#echo ""
-#echo "Running StreamTriad_kern2"
-#./StreamTriad_kern2
-#echo ""
-#echo "Running StreamTriad_par1"
-#./StreamTriad_par1
-#echo ""
-#echo "Running StreamTriad_par2"
-#./StreamTriad_par2
-#echo ""
-#echo "Running StreamTriad_par3"
-#./StreamTriad_par3
+echo "Running ShallowWater"
+./ShallowWater
 echo ""
-echo "Running StreamTriad_par4"
-./StreamTriad_par4
+echo "Running ShallowWater_par1"
+./ShallowWater_par1
 echo ""
-echo "Running StreamTriad_par5"
-./StreamTriad_par5
+echo "Running ShallowWater_par2"
+./ShallowWater_par2
+echo ""
+echo "Running ShallowWater_par3"
+./ShallowWater_par3
+echo ""
+echo "Running ShallowWater_par4"
+./ShallowWater_par4
+echo ""

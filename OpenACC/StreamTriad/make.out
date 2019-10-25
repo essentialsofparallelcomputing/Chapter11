@@ -17,7 +17,7 @@ main:
 [ 29%] Building C object CMakeFiles/StreamTriad_par2.dir/StreamTriad_par2.c.o
 main:
      13, Generating create(a[:nsize],c[:nsize],b[:nsize]) [if not already present]
-     19, Generating present(b[:nsize],a[:nsize])
+     19, Generating present(a[:nsize],b[:nsize])
          Generating Tesla code
          20, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
      28, Generating present(a[:nsize],c[:nsize],b[:nsize])
@@ -38,7 +38,7 @@ main:
 [ 54%] Building C object CMakeFiles/StreamTriad_par3.dir/StreamTriad_par3.c.o
 main:
      13, Generating enter data create(b[:nsize],c[:nsize],a[:nsize])
-     18, Generating present(b[:nsize],a[:nsize])
+     18, Generating present(a[:nsize],b[:nsize])
          Generating Tesla code
          19, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
      27, Generating present(a[:nsize],c[:nsize],b[:nsize])
@@ -50,49 +50,51 @@ main:
 [ 62%] Built target StreamTriad_par3
 [ 66%] Building C object CMakeFiles/StreamTriad_kern2.dir/StreamTriad_kern2.c.o
 main:
-     16, Generating implicit copyout(a[:20000000],b[:20000000]) [if not already present]
+     16, Generating implicit copyout(b[:20000000],a[:20000000]) [if not already present]
      19, Loop is parallelizable
          Generating Tesla code
          19, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
-     28, Generating implicit copyin(b[:20000000]) [if not already present]
-         Generating implicit copyout(c[:20000000]) [if not already present]
-         Generating implicit copyin(a[:20000000]) [if not already present]
-     31, Loop is parallelizable
+     28, Generating implicit copyout(c[:20000000]) [if not already present]
+         Generating implicit copyin(b[:20000000],a[:20000000]) [if not already present]
+     29, Loop is parallelizable
          Generating Tesla code
-         31, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+         29, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
 [ 70%] Building C object CMakeFiles/StreamTriad_kern2.dir/timer.c.o
 [ 75%] Linking C executable StreamTriad_kern2
 [ 75%] Built target StreamTriad_kern2
 [ 79%] Building C object CMakeFiles/StreamTriad_kern1.dir/StreamTriad_kern1.c.o
 main:
-     16, Generating implicit copyout(b[:20000000],a[:20000000]) [if not already present]
+     16, Generating implicit copyout(a[:20000000],b[:20000000]) [if not already present]
      17, Loop is parallelizable
          Generating Tesla code
          17, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
-     25, Generating implicit copyin(b[:20000000]) [if not already present]
-         Generating implicit copyout(c[:20000000]) [if not already present]
-         Generating implicit copyin(a[:20000000]) [if not already present]
+     17, Complex loop carried dependence of a-> prevents parallelization
+         Loop carried dependence of b-> prevents parallelization
+     25, Generating implicit copyout(c[:20000000]) [if not already present]
+         Generating implicit copyin(b[:20000000],a[:20000000]) [if not already present]
      26, Complex loop carried dependence of b->,a-> prevents parallelization
          Loop carried dependence of c-> prevents parallelization
          Loop carried backward dependence of c-> prevents vectorization
          Accelerator serial kernel generated
          Generating Tesla code
          26, #pragma acc loop seq
+     26, Complex loop carried dependence of b-> prevents parallelization
+         Loop carried backward dependence of c-> prevents vectorization
 [ 83%] Building C object CMakeFiles/StreamTriad_kern1.dir/timer.c.o
 [ 87%] Linking C executable StreamTriad_kern1
 [ 87%] Built target StreamTriad_kern1
 [ 91%] Building C object CMakeFiles/StreamTriad_kern3.dir/StreamTriad_kern3.c.o
 main:
-     13, Generating enter data create(c[:nsize],b[:nsize],a[:nsize])
-     18, Generating present(a[:nsize],b[:nsize])
-     21, Loop is parallelizable
+     13, Generating enter data create(b[:nsize],c[:nsize],a[:nsize])
+     18, Generating present(b[:nsize],a[:nsize])
+     19, Loop is parallelizable
          Generating Tesla code
-         21, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
-     30, Generating present(a[:nsize],c[:nsize],b[:nsize])
-     33, Loop is parallelizable
+         19, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     27, Generating present(a[:nsize],c[:nsize],b[:nsize])
+     28, Loop is parallelizable
          Generating Tesla code
-         33, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
-     42, Generating exit data delete(c[:nsize],b[:nsize],a[:nsize])
+         28, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+     36, Generating exit data delete(c[:nsize],b[:nsize],a[:nsize])
 [ 95%] Building C object CMakeFiles/StreamTriad_kern3.dir/timer.c.o
 [100%] Linking C executable StreamTriad_kern3
 [100%] Built target StreamTriad_kern3
