@@ -78,7 +78,6 @@ int main(int argc, char *argv[])
 
   double **temp;
 
-
   /*initialize matrix*/
   
   for(int j=0;j<=ny+1;j++){

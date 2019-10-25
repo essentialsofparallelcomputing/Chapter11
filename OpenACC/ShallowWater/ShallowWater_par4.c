@@ -78,11 +78,16 @@ int main(int argc, char *argv[])
 
   double **temp;
 
-#pragma acc enter data create(H[:ny+2][:nx+2],U[:ny+2][:nx+2],V[:ny+2][:nx+2],Hx[:ny][:nx+1],Ux[:ny][:nx+1],Vx[:ny][:nx+1],Hy[:ny+1][:nx],Uy[:ny+1][:nx],Vy[:ny+1][:nx],Hnew[:ny+2][:nx+2],Unew[:ny+2][:nx+2],Vnew[:ny+2][:nx+2])
+#pragma acc enter data create( \
+        H[:ny+2][:nx+2],    U[:ny+2][:nx+2],    V[:ny+2][:nx+2], \
+        Hx[:ny][:nx+1],     Ux[:ny][:nx+1],     Vx[:ny][:nx+1],  \
+        Hy[:ny+1][:nx],     Uy[:ny+1][:nx],     Vy[:ny+1][:nx],  \
+        Hnew[:ny+2][:nx+2], Unew[:ny+2][:nx+2], Vnew[:ny+2][:nx+2])
 
   /*initialize matrix*/
   
-  #pragma acc parallel loop present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
+  #pragma acc parallel loop present( \
+        H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
   for(int j=0;j<=ny+1;j++){
     for(int i=0;i<=nx+1;i++){
       H[j][i]=2.0;
@@ -113,7 +118,8 @@ int main(int argc, char *argv[])
     for (int ib=0; ib<nburst; ib++){
 
       //set boundary conditons
-#pragma acc parallel loop present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
+#pragma acc parallel loop present( \
+        H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
       for(int j=1;j<=ny;j++){
         H[j][0]=H[j][1];
         U[j][0]=-U[j][1];
@@ -122,7 +128,8 @@ int main(int argc, char *argv[])
         U[j][nx+1]=-U[j][nx];
         V[j][nx+1]=V[j][nx];
       }
-#pragma acc parallel loop present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
+#pragma acc parallel loop present( \
+        H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2])
       for(int i=0;i<=nx+1;i++){
         H[0][i]=H[1][i];
         U[0][i]=U[1][i];
@@ -138,7 +145,9 @@ int main(int argc, char *argv[])
 
       //first pass
       //x direction
-#pragma acc parallel loop collapse(2) tile(*,*) present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2], Hx[:ny][:nx+1], Ux[:ny][:nx+1], Vx[:ny][:nx+1])
+#pragma acc parallel loop collapse(2) tile(*,*) present(   \
+        H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2], \
+        Hx[:ny][:nx+1],  Ux[:ny][:nx+1],  Vx[:ny][:nx+1])
       for (int j = 0; j < ny; j++) {
         for (int i = 0; i<=nx;i++) {
           //density calculation
@@ -157,7 +166,9 @@ int main(int argc, char *argv[])
     
     
       //y direction
-#pragma acc parallel loop collapse(2) tile(*,*) present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2], Hy[:ny+1][:nx], Uy[:ny+1][:nx], Vy[:ny+1][:nx])
+#pragma acc parallel loop collapse(2) tile(*,*) present(   \
+        H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2], \
+        Hy[:ny+1][:nx],  Uy[:ny+1][:nx],  Vy[:ny+1][:nx])
       for(int j = 0; j<=ny; j++){
         for(int i=0; i<nx; i++){
           //density calculation
@@ -175,7 +186,11 @@ int main(int argc, char *argv[])
       }
 
       //second pass
-#pragma acc parallel loop collapse(2) tile(*,*) present(H[:ny+2][:nx+2], U[:ny+2][:nx+2], V[:ny+2][:nx+2], Hnew[:ny+2][:nx+2], Unew[:ny+2][:nx+2], Vnew[:ny+2][:nx+2], Hx[:ny][:nx+1], Ux[:ny][:nx+1], Vx[:ny][:nx+1], Hy[:ny+1][:nx], Uy[:ny+1][:nx], Vy[:ny+1][:nx])
+#pragma acc parallel loop collapse(2) tile(*,*) present( \
+        H[:ny+2][:nx+2],    U[:ny+2][:nx+2],    V[:ny+2][:nx+2],    \
+        Hnew[:ny+2][:nx+2], Unew[:ny+2][:nx+2], Vnew[:ny+2][:nx+2], \
+        Hx[:ny][:nx+1],     Ux[:ny][:nx+1],     Vx[:ny][:nx+1],     \
+        Hy[:ny+1][:nx],     Uy[:ny+1][:nx],     Vy[:ny+1][:nx])
       for (int j = 1; j <=ny; j++) {
         for (int i = 1; i<=nx;i++) {
           //density calculation
@@ -225,7 +240,10 @@ int main(int argc, char *argv[])
     if (n%100 == 0) printf("Iteration:%5.5d, Time:%f, Timestep:%f Total mass:%f\n", n, time, deltaT, TotalMass);
 
   }  // End of iteration loop
-#pragma acc exit data delete(H[:ny+2][:nx+2],U[:ny+2][:nx+2],V[:ny+2][:nx+2],Hx[:ny][:nx+1],Ux[:ny][:nx+1],Vx[:ny][:nx+1],Hy[:ny+1][:nx],Uy[:ny+1][:nx],Vy[:ny+1][:nx],Hnew[:ny+2][:nx+2],Unew[:ny+2][:nx+2],Vnew[:ny+2][:nx+2])
+#pragma acc exit data delete(H[:ny+2][:nx+2],    U[:ny+2][:nx+2],    V[:ny+2][:nx+2], \
+                             Hx[:ny][:nx+1],     Ux[:ny][:nx+1],     Vx[:ny][:nx+1], \
+                             Hy[:ny+1][:nx],     Uy[:ny+1][:nx],     Vy[:ny+1][:nx], \
+                             Hnew[:ny+2][:nx+2], Unew[:ny+2][:nx+2], Vnew[:ny+2][:nx+2])
   
   /* Compute the average time taken/processor */
   totaltime = cpu_timer_stop(starttime);

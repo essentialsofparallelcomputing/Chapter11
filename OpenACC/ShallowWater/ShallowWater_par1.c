@@ -78,8 +78,6 @@ int main(int argc, char *argv[])
 
   double **temp;
 
-//#pragma acc enter data create(H[:ny+2][:nx+2],U[:ny+2][:nx+2],V[:ny+2][:nx+2],Hx[:ny][:nx+1],Ux[:ny][:nx+1],Vx[:ny][:nx+1],Hy[:ny+1][:nx],Uy[:ny+1][:nx],Vy[:ny+1][:nx],Hnew[:ny+2][:nx+2],Unew[:ny+2][:nx+2],Vnew[:ny+2][:nx+2])
-
   /*initialize matrix*/
   
   #pragma acc parallel loop
@@ -225,10 +223,6 @@ int main(int argc, char *argv[])
     if (n%100 == 0) printf("Iteration:%5.5d, Time:%f, Timestep:%f Total mass:%f\n", n, time, deltaT, TotalMass);
 
   }  // End of iteration loop
-//#pragma acc exit data delete(H[:ny+2][:nx+2],U[:ny+2][:nx+2],V[:ny+2][:nx+2])
-//#pragma acc exit data delete(Hx[:ny][:nx+1],Ux[:ny][:nx+1],Vx[:ny][:nx+1])
-//#pragma acc exit data delete(Hy[:ny+1][:nx],Uy[:ny+1][:nx],Vy[:ny+1][:nx])
-//#pragma acc exit data delete(Hnew[:ny+2][:nx+2],Unew[:ny+2][:nx+2],Vnew[:ny+2][:nx+2])
   
   /* Compute the average time taken/processor */
   totaltime = cpu_timer_stop(starttime);
