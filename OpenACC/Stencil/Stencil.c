@@ -12,11 +12,11 @@ int main(int argc, char *argv[])
    struct timespec tstart_cpu, tstop_cpu;
    double cpu_time;
    int imax=2002, jmax = 2002;
-   int niter=10000, nburst=100;
+   int niter=1000, nburst=100;
 
-   double** xtmp;
-   double** x    = malloc2D(jmax, imax);
-   double** xnew = malloc2D(jmax, imax);
+   double** restrict xtmp;
+   double** restrict x    = malloc2D(jmax, imax);
+   double** restrict xnew = malloc2D(jmax, imax);
 
    for (int j = 0; j < jmax; j++){
       for (int i = 0; i < imax; i++){
@@ -47,6 +47,9 @@ int main(int argc, char *argv[])
 
       printf("Iter %d\n",iter+nburst);
    }
+
+   free(x);
+   free(xnew);
 
    printf("Timing is %f\n",cpu_time);
 }

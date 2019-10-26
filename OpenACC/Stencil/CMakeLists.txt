@@ -13,7 +13,7 @@ find_package(OpenACC)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
     #set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=all,ccff")
-    set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=accel")
+    set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=accel -ta=nvidia,time")
 elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
    set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -fopt-info-optimized-omp")
 endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
@@ -32,44 +32,29 @@ endif (CMAKE_OPENACC_VERBOSE)
 add_executable(Stencil Stencil.c malloc2D.c malloc2D.h timer.c timer.h)
 
 # Adds build target of stream_triad_par1 with source code files
-add_executable(Stencil_par1 Stencil_par1.c malloc2D.c malloc2d.h timer.c timer.h)
+add_executable(Stencil_par1 Stencil_par1.c malloc2D.c malloc2D.h timer.c timer.h)
 set_source_files_properties(Stencil_par1.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(Stencil_par1 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
-## Adds build target of stream_triad_par2 with source code files
-#add_executable(Stencil_par2 Stencil_par2.c timer.c timer.h)
-#set_source_files_properties(Stencil_par2.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_par2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_par3 with source code files
-#add_executable(Stencil_par3 Stencil_par3.c timer.c timer.h)
-#set_source_files_properties(Stencil_par3.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_par3 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_par4 with source code files
-#add_executable(Stencil_par4 Stencil_par4.c timer.c timer.h)
-#set_source_files_properties(Stencil_par4.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_par5 with source code files
-#add_executable(Stencil_par5 Stencil_par5.c timer.c timer.h)
-#set_source_files_properties(Stencil_par5.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_par5 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_kern1 with source code files
-#add_executable(Stencil_kern1 Stencil_kern1.c timer.c timer.h)
-#set_source_files_properties(Stencil_kern1.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_kern1 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_kern2 with source code files
-#add_executable(Stencil_kern2 Stencil_kern2.c timer.c timer.h)
-#set_source_files_properties(Stencil_kern2.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_kern2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-#
-## Adds build target of stream_triad_kern2 with source code files
-#add_executable(Stencil_kern3 Stencil_kern3.c timer.c timer.h)
-#set_source_files_properties(Stencil_kern3.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-#set_target_properties(Stencil_kern3 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
+# Adds build target of stream_triad_par2 with source code files
+add_executable(Stencil_par2 Stencil_par2.c malloc2D.c malloc2D.h timer.c timer.h)
+set_source_files_properties(Stencil_par2.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_target_properties(Stencil_par2 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
+
+# Adds build target of stream_triad_par3 with source code files
+add_executable(Stencil_par3 Stencil_par3.c malloc2D.c malloc2D.h timer.c timer.h)
+set_source_files_properties(Stencil_par3.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_target_properties(Stencil_par3 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
+
+# Adds build target of stream_triad_par4 with source code files
+add_executable(Stencil_par4 Stencil_par4.c malloc2D.c malloc2D.h timer.c timer.h)
+set_source_files_properties(Stencil_par4.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_target_properties(Stencil_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
+
+# Adds build target of stream_triad_par5 with source code files
+add_executable(Stencil_par5 Stencil_par5.c malloc2D.c malloc2D.h timer.c timer.h)
+set_source_files_properties(Stencil_par5.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
+set_target_properties(Stencil_par5 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles

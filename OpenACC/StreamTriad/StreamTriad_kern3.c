@@ -6,16 +6,16 @@
 int main(int argc, char *argv[]){
 
    int nsize = 20000000, ntimes=16;
-   double *a = malloc(nsize * sizeof(double));
-   double *b = malloc(nsize * sizeof(double));
-   double *c = malloc(nsize * sizeof(double));
+   double* restrict a = malloc(nsize * sizeof(double));
+   double* restrict b = malloc(nsize * sizeof(double));
+   double* restrict c = malloc(nsize * sizeof(double));
 
 #pragma acc enter data create(a[0:nsize],b[0:nsize],c[0:nsize])
 
    struct timespec tstart;
    // initializing data and arrays
    double scalar = 3.0, time_sum = 0.0;
-#pragma acc kernels loop independent present(a[0:nsize],b[0:nsize])
+#pragma acc kernels present(a[0:nsize],b[0:nsize])
    for (int i=0; i<nsize; i++) {
       a[i] = 1.0;
       b[i] = 2.0;
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]){
    for (int k=0; k<ntimes; k++){
       cpu_timer_start(&tstart);
       // stream triad loop 
-#pragma acc kernels loop independent present(a[0:nsize],b[0:nsize],c[0:nsize])
+#pragma acc kernels present(a[0:nsize],b[0:nsize],c[0:nsize])
       for (int i=0; i<nsize; i++){
         c[i] = a[i] + scalar*b[i];
       }

@@ -10,9 +10,9 @@ if (NOT CMAKE_OPENACC_VERBOSE)
 endif (NOT CMAKE_OPENACC_VERBOSE)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
-    set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} -alias=ansi")
+    set(C_FLAGS "${C_FLAGS} -alias=ansi")
 elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
-    set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} -fstrict-aliasing")
+    set(C_FLAGS "${C_FLAGS} -fstrict-aliasing")
 endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
 
 find_package(OpenACC)
@@ -50,11 +50,6 @@ set_target_properties(StreamTriad_par3 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}
 add_executable(StreamTriad_par4 StreamTriad_par4.c timer.c timer.h)
 set_source_files_properties(StreamTriad_par4.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
 set_target_properties(StreamTriad_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
-
-# Adds build target of stream_triad_par5 with source code files
-add_executable(StreamTriad_par5 StreamTriad_par5.c timer.c timer.h)
-set_source_files_properties(StreamTriad_par5.c PROPERTIES COMPILE_FLAGS "${OpenACC_C_FLAGS}")
-set_target_properties(StreamTriad_par5 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS}")
 
 # Adds build target of stream_triad_kern1 with source code files
 add_executable(StreamTriad_kern1 StreamTriad_kern1.c timer.c timer.h)

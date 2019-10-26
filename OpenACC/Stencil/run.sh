@@ -19,20 +19,20 @@ export PGI_ACC_TIME=1
 #    can also be specified as a compiler flag
 #export ACC_DEVICE_TYPE=[host|nvidia]
 
-echo "Running Stencil"
+echo "Running Stencil -- original code"
 ./Stencil
 echo ""
-echo "Running Stencil_par1"
-./Stencil_par1
+#echo "Running Stencil_par1 -- adding compute regions"
+#./Stencil_par1
 #echo ""
-#echo "Running Stencil_par2"
-#./Stencil_par2
-#echo ""
-#echo "Running Stencil_par3"
-#./Stencil_par3
+echo "Running Stencil_par2 -- adding structured data region"
+./Stencil_par2
 echo ""
-echo "Running Stencil_par4"
+echo "Running Stencil_par3 -- using dynamic data region"
+./Stencil_par3
+echo ""
+echo "Running Stencil_par4 -- adding collapse directive"
 ./Stencil_par4
 echo ""
-echo "Running Stencil_par5"
+echo "Running Stencil_par5 -- adding tile directive"
 ./Stencil_par5
