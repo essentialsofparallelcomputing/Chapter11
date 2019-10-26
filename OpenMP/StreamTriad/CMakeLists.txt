@@ -50,6 +50,11 @@ add_executable(StreamTriad_par4 StreamTriad_par4.c timer.c timer.h)
 set_target_properties(StreamTriad_par4 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
 set_target_properties(StreamTriad_par4 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
 
+# Adds build target of stream_triad_par5 with source code files
+add_executable(StreamTriad_par5 StreamTriad_par5.c timer.c timer.h)
+set_target_properties(StreamTriad_par5 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
+set_target_properties(StreamTriad_par5 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
+
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles
                   Makefile cmake_install.cmake StreamTriad.dSYM ipo_out.optrpt)

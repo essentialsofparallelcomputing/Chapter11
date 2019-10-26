@@ -41,7 +41,8 @@ elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Cray")
     set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS}")
 elseif (CMAKE_C_COMPILER_ID MATCHES "XL")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -qsmp -qoffload")
+    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -qsmp=noauto:omp -qoffload")
+    #set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -qsmp -qoffload")
 endif (CMAKE_C_COMPILER_ID MATCHES "GNU")
 
 
