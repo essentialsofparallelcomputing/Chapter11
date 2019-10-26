@@ -3,7 +3,7 @@ default:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_par3 StreamTr
 all:	StreamTriad StreamTriad_par1 StreamTriad_par2 StreamTriad_par3 StreamTriad_par4 StreamTriad_par5\
    	StreamTriad_kern1 StreamTriad_kern2 StreamTriad_kern3
 
-CFLAGS:= -g -O3   -c99 -acc -Mpreprocess -Mcuda -alias=ansi  -Minfo=accel
+CFLAGS:= -g -O3 -c99 -alias=ansi -acc -Mpreprocess -Mcuda -Minfo=accel
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $^
