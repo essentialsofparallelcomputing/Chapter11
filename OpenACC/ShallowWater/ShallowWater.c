@@ -9,30 +9,6 @@
 /*********************************************************************************************
  * WAVE -- 2D Shallow Water Equation Model
  *                            Bob Robey, Los Alamos National Laboratory
- *                      Written for Supercomputing Challenge Kickoff 2007
- *                                   Copyright, 2007
- *                      Permission Granted to Supercomputing Challenge
- *                           Participants to use in their projects
- 
- * This work is based on the following 2006-2007 Supercomputing
- * Challenge Projects. Their work is used by permission.
- *  
- * Numerical method based on the Shallow Water Model by
- * 
- *             Joseph Koby, Sarah Armstrong, Juan-Antonio Vigil, Vanessa Trujillo,
- *                                  McCurdy High School
- *                                    Copyright 2007
- *                        Written for Supercomputing Challenge 2006-2007
- *                                ALL RIGHTS RESERVED
- * 
- * C/MPI coding based on the SAPIENT Compressible Fluid Model
- * 
- *                                      SAPIENT
- *                  Copyright 2007 Jonathan Robey, Dov Shlachter
- *                               Los Alamos High School
- *                     Written for Supercomputing Challenge 2006-2007
- *                                  ALL RIGHTS RESERVED
- * 
  * ******************************************************************************************/
 
 //define macro for squaring a number
@@ -52,31 +28,29 @@ int main(int argc, char *argv[])
   double   deltaT = 0.05;                       //hardwired timestep
   double   time=0.0;                           //computer simulation time
   double   totaltime;   //variables to calculate time taken for the program to run
-  struct timespec starttime;
+  struct   timespec starttime;
   double   TotalMass, origTM;    //variables for checking conservation of mass
   
-  printf("Copyright 2007\n");
- 
   /* allocate the memory dynamically for the matrix */
   // state variables
-  double **H = malloc2D(ny+2, nx+2);
-  double **U = malloc2D(ny+2, nx+2);
-  double **V = malloc2D(ny+2, nx+2);
+  double** restrict H = malloc2D(ny+2, nx+2);
+  double** restrict U = malloc2D(ny+2, nx+2);
+  double** restrict V = malloc2D(ny+2, nx+2);
 
-  double **Hnew = malloc2D(ny+2, nx+2);
-  double **Unew = malloc2D(ny+2, nx+2);
-  double **Vnew = malloc2D(ny+2, nx+2);
+  double** restrict Hnew = malloc2D(ny+2, nx+2);
+  double** restrict Unew = malloc2D(ny+2, nx+2);
+  double** restrict Vnew = malloc2D(ny+2, nx+2);
 
   // half-step arrays
-  double **Hx = malloc2D(ny, nx+1);
-  double **Ux = malloc2D(ny, nx+1);
-  double **Vx = malloc2D(ny, nx+1);
+  double** restrict Hx = malloc2D(ny, nx+1);
+  double** restrict Ux = malloc2D(ny, nx+1);
+  double** restrict Vx = malloc2D(ny, nx+1);
 
-  double **Hy = malloc2D(ny+1, nx);
-  double **Uy = malloc2D(ny+1, nx);
-  double **Vy = malloc2D(ny+1, nx);
+  double** restrict Hy = malloc2D(ny+1, nx);
+  double** restrict Uy = malloc2D(ny+1, nx);
+  double** restrict Vy = malloc2D(ny+1, nx);
 
-  double **temp;
+  double** restrict temp;
 
   /*initialize matrix*/
   

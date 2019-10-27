@@ -22,15 +22,15 @@ export PGI_ACC_TIME=1
 echo "Running ShallowWater"
 ./ShallowWater
 echo ""
-echo "Running ShallowWater_par1"
+echo "Running ShallowWater_par1 -- adding compute region"
 ./ShallowWater_par1
 echo ""
-echo "Running ShallowWater_par2"
+echo "Running ShallowWater_par2 -- adding dynamic data region"
 ./ShallowWater_par2
 echo ""
-echo "Running ShallowWater_par3"
+echo "Running ShallowWater_par3 -- adding collapse clause"
 ./ShallowWater_par3
 echo ""
-echo "Running ShallowWater_par4"
+echo "Running ShallowWater_par4 -- adding tile clause"
 ./ShallowWater_par4
 echo ""
