@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
       time_sum += cpu_timer_stop(tstart);
    }
 
-   printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
+   printf("Average runtime for stream triad loop is %lf secs\n", time_sum/ntimes);
 
 #pragma acc exit data delete(a[0:nsize],b[0:nsize],c[0:nsize])
 

@@ -22,9 +22,9 @@ export PGI_ACC_TIME=1
 echo "Running Stencil -- original code"
 ./Stencil
 echo ""
-#echo "Running Stencil_par1 -- adding compute regions"
-#./Stencil_par1
-#echo ""
+echo "Running Stencil_par1 -- adding compute regions"
+./Stencil_par1
+echo ""
 echo "Running Stencil_par2 -- adding structured data region"
 ./Stencil_par2
 echo ""

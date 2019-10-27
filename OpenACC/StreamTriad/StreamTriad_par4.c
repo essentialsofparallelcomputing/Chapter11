@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
       time_sum += cpu_timer_stop(tstart);
    }
 
-   printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
+   printf("Average runtime for stream triad loop is %lf secs\n", time_sum/ntimes);
 
    acc_free(a);
    acc_free(b);

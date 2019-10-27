@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
       c[1]=c[2];
    }
 
-   printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
+   printf("Average runtime for stream triad loop is %lf secs\n", time_sum/ntimes);
 
    free(a);
    free(b);
