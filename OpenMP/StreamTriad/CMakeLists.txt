@@ -22,8 +22,8 @@ elseif (CMAKE_C_COMPILER_ID MATCHES "Cray")
 endif (CMAKE_C_COMPILER_ID MATCHES "GNU")
 
 find_package(CUDA REQUIRED)
-message("CUDA include ${CUDA_INCLUDE_DIRS}")
-message("CUDA libs ${CUDA_LIBS_DIR}")
+#message("CUDA include ${CUDA_INCLUDE_DIRS}")
+#message("CUDA libs ${CUDA_LIBS_DIR}")
 find_package(OpenMPAccel)
 
 if (CMAKE_C_COMPILER_ID MATCHES "XL")
@@ -69,14 +69,12 @@ target_link_libraries(StreamTriad_par5 "${CUDA_LIBRARIES}")
 # Adds build target of stream_triad_par6 with source code files
 add_executable(StreamTriad_par6 StreamTriad_par6.c timer.c timer.h)
 set_target_properties(StreamTriad_par6 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
-target_include_directories(StreamTriad_par6 PRIVATE "${CUDA_INCLUDE_DIRS}")
-set_target_properties(StreamTriad_par6 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS} ${CUDA_C_FLAGS}")
+set_target_properties(StreamTriad_par6 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
 
 # Adds build target of stream_triad_par7 with source code files
 add_executable(StreamTriad_par7 StreamTriad_par6.c timer.c timer.h)
 set_target_properties(StreamTriad_par7 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
-target_include_directories(StreamTriad_par7 PRIVATE "${CUDA_INCLUDE_DIRS}")
-set_target_properties(StreamTriad_par7 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS} ${CUDA_C_FLAGS}")
+set_target_properties(StreamTriad_par7 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
 
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles
