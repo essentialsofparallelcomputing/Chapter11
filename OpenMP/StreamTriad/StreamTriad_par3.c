@@ -6,9 +6,9 @@
 int main(int argc, char *argv[]){
 
    int nsize = 20000000, ntimes=16;
-   double *a = malloc(nsize * sizeof(double));
-   double *b = malloc(nsize * sizeof(double));
-   double *c = malloc(nsize * sizeof(double));
+   double* restrict a = malloc(nsize * sizeof(double));
+   double* restrict b = malloc(nsize * sizeof(double));
+   double* restrict c = malloc(nsize * sizeof(double));
 
    struct timespec tstart;
    // initializing data and arrays
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]){
 
 #pragma omp target data map(to:a[0:nsize], b[0:nsize], c[0:nsize])
    {
-#pragma omp target teams distribute parallel for
+#pragma omp target teams distribute parallel for simd
       for (int i=0; i<nsize; i++) {
          a[i] = 1.0;
          b[i] = 2.0;
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
       for (int k=0; k<ntimes; k++){
          cpu_timer_start(&tstart);
          // stream triad loop 
-#pragma omp target teams distribute parallel for
+#pragma omp target teams distribute parallel for simd
          for (int i=0; i<nsize; i++){
             c[i] = a[i] + scalar*b[i];
          }

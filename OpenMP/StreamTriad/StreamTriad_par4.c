@@ -6,9 +6,9 @@
 int main(int argc, char *argv[]){
 
    int nsize = 20000000, ntimes=16;
-   double *a = malloc(nsize * sizeof(double));
-   double *b = malloc(nsize * sizeof(double));
-   double *c = malloc(nsize * sizeof(double));
+   double* restrict a = malloc(nsize * sizeof(double));
+   double* restrict b = malloc(nsize * sizeof(double));
+   double* restrict c = malloc(nsize * sizeof(double));
 
 #pragma omp target enter data map(to:a[0:nsize], b[0:nsize], c[0:nsize])
 

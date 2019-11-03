@@ -11,20 +11,29 @@ if (NOT CMAKE_OPENMPACCEL_VERBOSE)
     set(CMAKE_OPENMPACCEL_VERBOSE true)
 endif (NOT CMAKE_OPENMPACCEL_VERBOSE)
 
-find_package(OpenMPAccel)
-
 if (CMAKE_C_COMPILER_ID MATCHES "GNU")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -fstrict-aliasing")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstrict-aliasing")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -fstrict-aliasing")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstrict-aliasing")
 elseif (CMAKE_C_COMPILER_ID MATCHES "XL")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -qalias=ansi")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -qalias=ansi")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Cray")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -h restrict=a")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -h restrict=a")
 endif (CMAKE_C_COMPILER_ID MATCHES "GNU")
 
+find_package(CUDA REQUIRED)
+message("CUDA include ${CUDA_INCLUDE_DIRS}")
+message("CUDA libs ${CUDA_LIBS_DIR}")
+find_package(OpenMPAccel)
+
+if (CMAKE_C_COMPILER_ID MATCHES "XL")
+    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -qreport")
+elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
+    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -fopt-info-omp")
+endif (CMAKE_C_COMPILER_ID MATCHES "XL")
+
 if (CMAKE_OPENMPACCEL_VERBOSE)
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} ${OpenMPAccel_C_VERBOSE}")
+    set(OpenACC_C_FLAGS "${OpenACC_C_FLAGS} ${OpenACC_C_VERBOSE}")
 endif (CMAKE_OPENMPACCEL_VERBOSE)
 
 # Adds build target of stream_triad with source code files
@@ -52,8 +61,16 @@ set_target_properties(StreamTriad_par4 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FL
 
 # Adds build target of stream_triad_par5 with source code files
 add_executable(StreamTriad_par5 StreamTriad_par5.c timer.c timer.h)
-set_target_properties(StreamTriad_par5 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
-set_target_properties(StreamTriad_par5 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
+set_target_properties(StreamTriad_par5 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
+target_include_directories(StreamTriad_par5 PRIVATE "${CUDA_INCLUDE_DIRS}")
+set_target_properties(StreamTriad_par5 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS} ${CUDA_C_FLAGS}")
+target_link_libraries(StreamTriad_par5 "${CUDA_LIBRARIES}")
+
+# Adds build target of stream_triad_par6 with source code files
+add_executable(StreamTriad_par6 StreamTriad_par6.c timer.c timer.h)
+set_target_properties(StreamTriad_par6 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
+target_include_directories(StreamTriad_par6 PRIVATE "${CUDA_INCLUDE_DIRS}")
+set_target_properties(StreamTriad_par6 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS} ${CUDA_C_FLAGS}")
 
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles

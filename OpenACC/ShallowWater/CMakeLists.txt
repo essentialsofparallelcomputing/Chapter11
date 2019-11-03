@@ -10,9 +10,9 @@ if (NOT CMAKE_OPENACC_VERBOSE)
 endif (NOT CMAKE_OPENACC_VERBOSE)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
-    set(C_FLAGS "${C_FLAGS} -alias=ansi")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -alias=ansi")
 elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
-    set(C_FLAGS "${C_FLAGS} -fstrict-aliasing")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstrict-aliasing")
 endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
 
 find_package(OpenACC)
@@ -53,4 +53,4 @@ set_target_properties(ShallowWater_par4 PROPERTIES LINK_FLAGS "${OpenACC_C_FLAGS
 
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles
-                  Makefile cmake_install.cmake StreamTriad.dSYM ipo_out.optrpt)
+                  Makefile cmake_install.cmake ShallowWater.dSYM ipo_out.optrpt)

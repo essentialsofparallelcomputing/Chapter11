@@ -10,15 +10,14 @@ if (NOT CMAKE_OPENACC_VERBOSE)
 endif (NOT CMAKE_OPENACC_VERBOSE)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
-    set(C_FLAGS "${C_FLAGS} -alias=ansi")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -alias=ansi")
 elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
-    set(C_FLAGS "${C_FLAGS} -fstrict-aliasing")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstrict-aliasing")
 endif (CMAKE_C_COMPILER_ID MATCHES "PGI")
 
 find_package(OpenACC)
 
 if (CMAKE_C_COMPILER_ID MATCHES "PGI")
-    #set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=all,ccff")
     set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -Minfo=accel")
 elseif (CMAKE_C_COMPILER_ID MATCHES "GNU")
    set(OpenACC_C_VERBOSE "${OpenACC_C_VERBOSE} -fopt-info-optimized-omp")
