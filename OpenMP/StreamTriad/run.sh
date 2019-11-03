@@ -20,3 +20,6 @@ echo "Running StreamTriad_par5 -- only allocating arrays on GPU with cudaMalloc"
 echo ""
 echo "Running StreamTriad_par6 -- map alloc arrays on GPU"
 ./StreamTriad_par6
+echo ""
+echo "Running StreamTriad_par7 -- declare target arrays on GPU"
+./StreamTriad_par7

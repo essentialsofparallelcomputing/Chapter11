@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
    cudaMalloc((void *)&b,nsize*sizeof(double));
    cudaMalloc((void *)&c,nsize*sizeof(double));
 
-#pragma target enter data use_device_ptr(a, b, c)
+#pragma omp target enter data use_device_ptr(a, b, c)
 
    struct timespec tstart;
    // initializing data and arrays
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 
    printf("Average runtime for stream triad loop is %lf msecs\n", time_sum/ntimes);
 
-#pragma target exit data use_device_ptr(a, b, c)
+#pragma omp target exit data use_device_ptr(a, b, c)
 
    cudaFree(a);
    cudaFree(b);
