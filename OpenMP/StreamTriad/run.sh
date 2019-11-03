@@ -15,9 +15,11 @@ echo ""
 echo "Running StreamTriad_par4 -- adding GPU allocation"
 ./StreamTriad_par4
 echo ""
-echo "Running StreamTriad_par5 -- only allocating arrays on GPU with cudaMalloc"
-./StreamTriad_par5
-echo ""
+if [[ -x ./StreamTriad_par5 ]]; then
+   echo "Running StreamTriad_par5 -- only allocating arrays on GPU with cudaMalloc"
+   ./StreamTriad_par5
+   echo ""
+fi
 echo "Running StreamTriad_par6 -- map alloc arrays on GPU"
 ./StreamTriad_par6
 echo ""
