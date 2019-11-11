@@ -36,7 +36,7 @@ if (NOT CMAKE_C_COMPILER_ID MATCHES "Clang")
 endif (NOT CMAKE_C_COMPILER_ID MATCHES "Clang")
 
 if (CMAKE_C_COMPILER_ID MATCHES "GNU")
-    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -foffload=nvptx-none -foffload=-lm")
+    set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -foffload=-lm")
 elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
     #set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -fopenmp -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda --cuda-path=$ENV{CUDADIR} --cuda-gpu-arch=sm_70")
     #set(OpenMPAccel_C_FLAGS "${OpenMPAccel_C_FLAGS} -fopenmp -fopenmp=libomp -fopenmp-targets=nvptx64-nvidia-cuda --cuda-path=$ENV{CUDADIR} -Xopenmp-target -march=sm_70")
