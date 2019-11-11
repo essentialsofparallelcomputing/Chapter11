@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 #pragma omp target enter data map(to:x[0:jmax][0:imax], xnew[0:jmax][0:imax])
 
-#pragma omp target teams distribute parallel for simd
+#pragma omp target teams distribute parallel for simd collapse(2)
    for (int j = 0; j < jmax; j++){
       for (int i = 0; i < imax; i++){
          xnew[j][i] = 0.0;
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
       }
    }
 
-#pragma omp target teams distribute parallel for simd
+#pragma omp target teams distribute parallel for simd collapse(2)
    for (int j = jmax/2 - 5; j < jmax/2 + 5; j++){
       for (int i = imax/2 - 5; i < imax/2 -1; i++){
          x[j][i] = 400.0;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 
       for (int ib = 0; ib < nburst; ib++){
          cpu_timer_start(&tstart_cpu);
-#pragma omp target teams distribute parallel for simd
+#pragma omp target teams distribute parallel for simd collapse(2)
          for (int j = 1; j < jmax-1; j++){
             for (int i = 1; i < imax-1; i++){
                xnew[j][i] = ( x[j][i] + x[j][i-1] + x[j][i+1] + x[j-1][i] + x[j+1][i] )/5.0;

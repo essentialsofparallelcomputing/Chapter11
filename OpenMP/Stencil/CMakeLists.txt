@@ -48,21 +48,25 @@ add_executable(Stencil_par2 Stencil_par2.c malloc2D.c malloc2D.h timer.c timer.h
 set_target_properties(Stencil_par2 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
 set_target_properties(Stencil_par2 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
 
-## Adds build target of stream_triad_par3 with source code files
-#add_executable(Stencil_par3 Stencil_par3.c malloc2D.c malloc2D.h timer.c timer.h)
-#set_target_properties(Stencil_par3 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
-#set_target_properties(Stencil_par3 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
-#
-## Adds build target of stream_triad_par4 with source code files
-#add_executable(Stencil_par4 Stencil_par4.c malloc2D.c malloc2D.h timer.c timer.h)
-#set_target_properties(Stencil_par4 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
-#set_target_properties(Stencil_par4 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
-#
-## Adds build target of stream_triad_par5 with source code files
-#add_executable(Stencil_par5 Stencil_par5.c malloc2D.c malloc2D.h timer.c timer.h)
-#set_target_properties(Stencil_par5 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
-#target_include_directories(Stencil_par5 PRIVATE "${CUDA_INCLUDE_DIRS}")
-#set_target_properties(Stencil_par5 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS} ${CUDA_C_FLAGS}")
+# Adds build target of stream_triad_par3 with source code files
+add_executable(Stencil_par3 Stencil_par3.c malloc2D.c malloc2D.h timer.c timer.h)
+set_target_properties(Stencil_par3 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
+set_target_properties(Stencil_par3 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
+
+# Adds build target of stream_triad_par4 with source code files
+add_executable(Stencil_par4 Stencil_par4.c malloc2D.c malloc2D.h timer.c timer.h)
+set_target_properties(Stencil_par4 PROPERTIES COMPILE_FLAGS ${OpenMPAccel_C_FLAGS})
+set_target_properties(Stencil_par4 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
+
+# Adds build target of stream_triad_par5 with source code files
+add_executable(Stencil_par5 Stencil_par5.c malloc2D.c malloc2D.h timer.c timer.h)
+set_target_properties(Stencil_par5 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
+set_target_properties(Stencil_par5 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
+
+# Adds build target of stream_triad_par6 with source code files
+add_executable(Stencil_par6 Stencil_par6.c malloc2D.c malloc2D.h timer.c timer.h)
+set_target_properties(Stencil_par6 PROPERTIES COMPILE_FLAGS "${OpenMPAccel_C_FLAGS}")
+set_target_properties(Stencil_par6 PROPERTIES LINK_FLAGS "${OpenMPAccel_C_FLAGS}")
 
 # Cleanup
 add_custom_target(distclean COMMAND rm -rf CMakeCache.txt CMakeFiles
