@@ -1,0 +1,30 @@
+[
+    {
+        "source_dir": "./OpenACC/StreamTriad/",
+        "run_script": "./OpenACC/StreamTriad/run.sh"
+    },
+    {
+        "source_dir": "./OpenACC/mass_sum/",
+        "run_script": "./mass_sum"
+    },
+    {
+        "source_dir": "./OpenACC/MaxRadius/",
+        "run_script": "./MaxRadius"
+    },
+    {
+        "source_dir": "./OpenACC/Stencil/",
+        "run_script": "./OpenACC/Stencil/run.sh"
+    },
+    {
+        "source_dir": "./OpenACC/ShallowWater/",
+        "run_script": "./OpenACC/ShallowWater/run.sh"
+    },
+    {
+        "source_dir": "./OpenMP/StreamTriad/",
+        "run_script": "./OpenMP/StreamTriad/run.sh"
+    },
+    {
+        "source_dir": "./OpenMP/Stencil/",
+        "run_script": "./OpenMP/Stencil/run.sh"
+    }
+]
