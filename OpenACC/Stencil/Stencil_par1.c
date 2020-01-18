@@ -45,7 +45,12 @@ int main(int argc, char *argv[])
          }
          cpu_time += cpu_timer_stop(tstart_cpu);
 
-         SWAP_PTR(xnew, x, xtmp);
+#pragma acc parallel loop
+         for (int j = 0; j < jmax; j++){
+            for (int i = 0; i < imax; i++){
+               x[j][i] = xnew[j][i];
+            }
+         }
       }
 
       printf("Iter %d\n",iter+nburst);
