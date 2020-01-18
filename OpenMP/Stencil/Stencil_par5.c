@@ -5,8 +5,6 @@
 #include "malloc2D.h"
 #include "timer.h"
 
-#define SWAP_PTR(xnew,xold,xtmp) (xtmp=xnew, xnew=xold, xold=xtmp)
-
 int main(int argc, char *argv[])
 {
    struct timespec tstart_cpu, tstop_cpu;
@@ -14,7 +12,6 @@ int main(int argc, char *argv[])
    int imax=2002, jmax = 2002;
    int niter=1000, nburst=100;
 
-   double** restrict xtmp;
    double** restrict x    = malloc2D(jmax, imax);
    double** restrict xnew = malloc2D(jmax, imax);
 
@@ -51,6 +48,28 @@ int main(int argc, char *argv[])
                xnew[j][i] = ( x[j][i] + x[j][i-1] + x[j][i+1] + x[j-1][i] + x[j+1][i] )/5.0;
             }
          }
+
+#pragma omp target teams distribute
+         for (int j = 0; j < jmax; j++){
+#pragma omp parallel for simd schedule(static,1)
+            for (int i = 0; i < imax; i++){
+               x[j][i] = xnew[j][i];
+            }
+         }
+         cpu_time += cpu_timer_stop(tstart_cpu);
+
+      }
+
+      printf("Iter %d\n",iter+nburst);
+   }
+
+#pragma omp target exit data map(from:x[0:jmax][0:imax], xnew[0:jmax][0:imax])
+
+   free(x);
+   free(xnew);
+
+   printf("Timing is %f\n",cpu_time);
+}
          cpu_time += cpu_timer_stop(tstart_cpu);
 
          SWAP_PTR(xnew, x, xtmp);
