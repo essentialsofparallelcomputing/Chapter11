@@ -5,8 +5,6 @@
 #include "malloc2D.h"
 #include "timer.h"
 
-#define SWAP_PTR(xnew,xold,xtmp) (xtmp=xnew, xnew=xold, xold=xtmp)
-
 int main(int argc, char *argv[])
 {
    struct timespec tstart_cpu, tstop_cpu;
@@ -14,7 +12,6 @@ int main(int argc, char *argv[])
    int imax=2002, jmax = 2002;
    int niter=1000, nburst=100;
 
-   double** restrict xtmp;
    double** restrict x    = malloc2D(jmax, imax);
    double** restrict xnew = malloc2D(jmax, imax);
 
