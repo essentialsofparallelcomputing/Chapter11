@@ -22,13 +22,14 @@ int main(int argc, char *argv[]){
    }
 
    for (int k=0; k<ntimes; k++){
-      cpu_timer_start(&tstart);
+      // Temporarily commenting out until link fixed
+      //cpu_timer_start(&tstart);
       // stream triad loop 
 #pragma omp parallel for simd
       for (int i=0; i<nsize; i++){
          c[i] = a[i] + scalar*b[i];
       }
-      time_sum += cpu_timer_stop(tstart);
+      //time_sum += cpu_timer_stop(tstart);
    }
    }
 
