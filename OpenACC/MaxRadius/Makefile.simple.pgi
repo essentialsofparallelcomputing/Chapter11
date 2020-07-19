@@ -1,0 +1,18 @@
+default:	mass_sum
+all:	mass_sum
+
+# may need -foffload=-lm for math functions inside of kernels
+CFLAGS:= -g -O3   -std=gnu99 -fopenacc -fstrict-aliasing  -fopt-info-optimized-omp
+
+%.o: %.c
+	${CC} ${CFLAGS} -c $^
+
+mass_sum: mass_sum.o main.o
+	${CC} ${CFLAGS} $^ -o mass_sum
+
+clean:
+	rm -f mass_sum mass_sum.o
+	rm -f main.o
+
+distclean:
+	rm -f Makefile

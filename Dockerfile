@@ -1,15 +1,39 @@
-FROM ubuntu:18.04 AS builder
+FROM nvcr.io/hpc/pgi-compilers:ce
 WORKDIR /project
-RUN apt-get update && \
-    apt-get install -y bash cmake git vim gcc wget python3 xterm openssh-server nvidia-visual-profiler nvidia-nsight imagemagick && \
+RUN apt-get update -q && \
+    apt-get install -q -y cmake git vim gcc g++ gfortran software-properties-common python3 \
+            nvidia-visual-profiler nvidia-nsight && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget -q https://github.com/GPUOpen-Tools/CodeXL/releases/download/v2.6/codexl_2.6-302_amd64.deb
-RUN dpkg -i codexl_2.6-302_amd64.deb
+# Installing latest GCC compiler (version 8)
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+RUN apt-get update -q && \
+    apt-get install -q -y gcc-8 g++-8 gfortran-8 \
+                          gcc-9 g++-9 gfortran-9 \
+                          gcc-10 g++-10 gfortran-10 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# We can use the update-alternatives to switch between compiler versions
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 90\
+                        --slave /usr/bin/g++ g++ /usr/bin/g++-8\
+                        --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-8\
+                        --slave /usr/bin/gcov gcov /usr/bin/gcov-8
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 80\
+                        --slave /usr/bin/g++ g++ /usr/bin/g++-9\
+                        --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-9\
+                        --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 80\
+                        --slave /usr/bin/g++ g++ /usr/bin/g++-10\
+                        --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-10\
+                        --slave /usr/bin/gcov gcov /usr/bin/gcov-10
+
+RUN chmod u+s /usr/bin/update-alternatives
 
 SHELL ["/bin/bash", "-c"]
-ENV PATH /opt/CodeXL_2.6-302:$PATH
 
 RUN groupadd -r chapter11 && useradd -r -s /bin/false -g chapter11 chapter11
 
