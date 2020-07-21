@@ -1,15 +1,16 @@
 FROM nvcr.io/hpc/pgi-compilers:ce
 WORKDIR /project
-RUN apt-get update -q && \
-    apt-get install -q -y cmake git vim gcc g++ gfortran software-properties-common python3 \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -qq update && \
+    apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common python3 \
             nvidia-visual-profiler nvidia-nsight && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Installing latest GCC compiler (version 8)
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-RUN apt-get update -q && \
-    apt-get install -q -y gcc-8 g++-8 gfortran-8 \
+RUN apt-get -qq update && \
+    apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
                           gcc-9 g++-9 gfortran-9 \
                           gcc-10 g++-10 gfortran-10 && \
     apt-get clean && \

@@ -12,4 +12,3 @@ double mass_sum(int ncells, int* restrict celltype,
    }
    return(summer);
 }
-
