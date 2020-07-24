@@ -11,8 +11,8 @@ RUN apt-get -qq update && \
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
 RUN apt-get -qq update && \
     apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
-                          gcc-9 g++-9 gfortran-9 \
-                          gcc-10 g++-10 gfortran-10 && \
+                           gcc-9 g++-9 gfortran-9 \
+                           gcc-10 g++-10 gfortran-10 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -27,7 +27,7 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 80\
                         --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-9\
                         --slave /usr/bin/gcov gcov /usr/bin/gcov-9
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 80\
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 70\
                         --slave /usr/bin/g++ g++ /usr/bin/g++-10\
                         --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-10\
                         --slave /usr/bin/gcov gcov /usr/bin/gcov-10
@@ -36,12 +36,18 @@ RUN chmod u+s /usr/bin/update-alternatives
 
 SHELL ["/bin/bash", "-c"]
 
-RUN groupadd -r chapter11 && useradd -r -s /bin/false -g chapter11 chapter11
+#RUN groupadd -r chapter11 && useradd -r -s /bin/false -g chapter11 chapter11
+RUN groupadd -r chapter11 && useradd -m -s /bin/bash -g chapter11 chapter11
 
-WORKDIR /chapter11
-RUN chown -R chapter11:chapter11 /chapter11
+RUN usermod -a -G video chapter11
+
+WORKDIR /home/chapter11
+RUN chown -R chapter11:chapter11 /home/chapter11
 USER chapter11
 
 RUN git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
+
+WORKDIR /home/chapter11/Chapter11
+#RUN make
 
 ENTRYPOINT ["bash"]
