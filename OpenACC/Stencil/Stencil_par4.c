@@ -35,14 +35,16 @@ int main(int argc, char *argv[])
 
       for (int ib = 0; ib < nburst; ib++){
          cpu_timer_start(&tstart_cpu);
-#pragma acc parallel loop collapse(2) present(x[0:jmax][0:imax], xnew[0:jmax][0:imax])
+#pragma acc parallel loop collapse(2) \
+     present(x[0:jmax][0:imax], xnew[0:jmax][0:imax])
          for (int j = 1; j < jmax-1; j++){
             for (int i = 1; i < imax-1; i++){
                xnew[j][i] = ( x[j][i] + x[j][i-1] + x[j][i+1] + x[j-1][i] + x[j+1][i] )/5.0;
             }
          }
 
-#pragma acc parallel loop collapse(2) present(x[0:jmax][0:imax], xnew[0:jmax][0:imax])
+#pragma acc parallel loop collapse(2) \
+     present(x[0:jmax][0:imax], xnew[0:jmax][0:imax])
          for (int j = 0; j < jmax; j++){
             for (int i = 0; i < imax; i++){
                x[j][i] = xnew[j][i];
