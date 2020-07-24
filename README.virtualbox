@@ -29,7 +29,7 @@
 
 # Need script on guest to execute
 # git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
-# Run the script Chapter10/README.virtualbox
+# Run the script Chapter11/README.virtualbox
 
 DEBIAN_FRONTEND=noninteractive
 sudo apt-get -qq update && \
@@ -56,8 +56,22 @@ sudo update-alternatives --install /usr/bin/gcc       gcc       /usr/bin/gcc-10 
                          --slave   /usr/bin/gfortran  gfortran  /usr/bin/gfortran-10 \
                          --slave   /usr/bin/gcov      gcov      /usr/bin/gcov-10
 
+# Nvidia GPU software for computation
+sudo wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo RUN dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+
+sudo apt-get -qq update && \
+sudo apt-get -qq install -y cuda-toolkit-10-2 cuda-tools-10-2 cuda-compiler-10-2 \
+         cuda-libraries-10-2 cuda-libraries-dev-10-2 libnvidia-compute-450 && \
+sudo apt-get clean && \
+sudo rm -rf /var/lib/apt/lists/*
+
 # If Software updater prompts, install updated software --> wait ....
+
+PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/NsightCompute-2019.1${PATH:+:${PATH}}
+LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
 
-cd Chapter10; #make
+cd Chapter11; #make
