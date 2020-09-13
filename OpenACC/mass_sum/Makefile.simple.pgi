@@ -1,8 +1,7 @@
 default:	mass_sum
 all:	mass_sum
 
-# may need -foffload=-lm for math functions inside of kernels
-CFLAGS:= -g -O3   -std=gnu99 -fopenacc -fstrict-aliasing  -fopt-info-optimized-omp
+CFLAGS:= -g -O3 -acc -alias=ansi -Minfo=accel
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $^
