@@ -17,20 +17,23 @@ int main(int argc, char *argv[])
 
 #pragma omp target enter data map(to:x[0:jmax][0:imax], xnew[0:jmax][0:imax])
 
-#pragma omp target teams distribute
-   for (int j = 0; j < jmax; j++){
+#pragma omp target teams
+   { 
+#pragma omp distribute
+      for (int j = 0; j < jmax; j++){
 #pragma omp parallel for simd
-      for (int i = 0; i < imax; i++){
-         xnew[j][i] = 0.0;
-         x[j][i]    = 5.0;
+         for (int i = 0; i < imax; i++){
+            xnew[j][i] = 0.0;
+            x[j][i]    = 5.0;
+         }
       }
-   }
 
-#pragma omp target teams distribute
-   for (int j = jmax/2 - 5; j < jmax/2 + 5; j++){
+#pragma omp distribute
+      for (int j = jmax/2 - 5; j < jmax/2 + 5; j++){
 #pragma omp parallel for simd
-      for (int i = imax/2 - 5; i < imax/2 -1; i++){
-         x[j][i] = 400.0;
+         for (int i = imax/2 - 5; i < imax/2 -1; i++){
+            x[j][i] = 400.0;
+         }
       }
    }
 
@@ -65,5 +68,5 @@ int main(int argc, char *argv[])
    free(x);
    free(xnew);
 
-   printf("Timing is %f\n",cpu_time);
+   printf("Timing is %lf\n",cpu_time);
 }
