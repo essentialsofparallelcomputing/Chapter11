@@ -58,5 +58,5 @@ int main(int argc, char *argv[])
    free(x);
    free(xnew);
 
-   printf("Timing is %f\n",cpu_time);
+   printf("Timing is %lf\n",cpu_time);
 }
