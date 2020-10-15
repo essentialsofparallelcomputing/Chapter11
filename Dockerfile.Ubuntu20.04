@@ -1,0 +1,77 @@
+# Part of the examples from the Parallel and High Performance Computing
+# Robey and Zamora, Manning Publications
+#   https://github.com/EssentialsofParallelComputing/Chapter5
+#
+# The built image can be found at:
+#
+#   https://hub.docker.com/r/essentialsofparallelcomputing/chapter5
+#
+# Author:
+# Bob Robey <brobey@earthlink.net>
+
+FROM ubuntu:20.04 AS builder
+LABEL maintainer Bob Robey <brobey@earthlink.net>
+
+ARG DOCKER_LANG=en_US
+ARG DOCKER_TIMEZONE=America/Denver
+
+WORKDIR /tmp
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
+       libnuma1 python3 wget && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Installing latest GCC compiler (version 10)
+RUN apt-get -qq update && \
+    apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
+                           gcc-10 g++-10 gfortran-10 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Problem with compile of compact hash neighbor with gcc-10
+RUN update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-8       90 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-8          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-8     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-8      && \
+    update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-9       80 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-9          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-9     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-9      && \
+    update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-10      70 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-10         \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-10    \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-10     && \
+    chmod u+s /usr/bin/update-alternatives
+
+# Nvidia GPU software for computation
+RUN wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
+RUN wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+SHELL ["/bin/bash", "-c"]
+
+#RUN groupadd -r chapter11 && useradd -r -s /bin/false -g chapter11 chapter11
+RUN groupadd -r chapter11 && useradd -m -s /bin/bash -g chapter11 chapter11
+
+RUN usermod -a -G video chapter11
+
+WORKDIR /home/chapter11
+RUN chown -R chapter11:chapter11 /home/chapter11
+USER chapter11
+ENV NVARCH=Linux_x86_64
+ENV NVCOMPILERS=/opt/nvidia/hpc_sdk
+ENV MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
+ENV PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+ENV CC=pgcc
+
+RUN git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
+
+WORKDIR /home/chapter11/Chapter11
+RUN make
+
+ENTRYPOINT ["bash"]
