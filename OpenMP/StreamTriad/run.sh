@@ -15,7 +15,7 @@ echo ""
 echo "Running StreamTriad_par4 -- dynamic data region"
 ./StreamTriad_par4
 echo ""
-if [[ -x ./StreamTriad_par5 ]]; then
+if [ -x ./StreamTriad_par5 ]; then
    echo "Running StreamTriad_par5 -- only allocating arrays on GPU with cudaMalloc"
    ./StreamTriad_par5
    echo ""
