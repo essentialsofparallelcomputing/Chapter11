@@ -9,7 +9,7 @@ StreamTriad/build/StreamTriad:
 Stencil: Stencil/build/Stencil
 
 Stencil/build/Stencil:
-	cd Stencil && mkdir build && cd build && cmake .. && make && ../run.sh
+	cd Stencil && mkdir build && cd build && cmake .. # && make && ../run.sh
 
 clean:
 	cd StreamTriad && rm -rf build
