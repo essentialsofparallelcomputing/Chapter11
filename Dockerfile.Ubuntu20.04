@@ -67,7 +67,6 @@ ENV NVARCH=Linux_x86_64
 ENV NVCOMPILERS=/opt/nvidia/hpc_sdk
 ENV MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
 ENV PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
-#ENV CC=pgcc
 
 RUN git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
 
