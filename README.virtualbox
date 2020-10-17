@@ -34,12 +34,17 @@
 DEBIAN_FRONTEND=noninteractive
 sudo apt-get -qq update && \
 sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
-             wget gnupg-agent
+             wget gnupg-agent && \
+sudo apt-get clean && \
+sudo rm -rf /var/lib/apt/lists/*
 
 # Installing latest GCC compiler (version 8) for best vectorization
+sudo apt-get -qq update && \
 sudo apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
                             gcc-9 g++-9 gfortran-9 \
-                            gcc-10 g++-10 gfortran-10
+                            gcc-10 g++-10 gfortran-10 && \
+sudo apt-get clean && \
+sudo rm -rf /var/lib/apt/lists/*
 
 sudo update-alternatives --install /usr/bin/gcc       gcc       /usr/bin/gcc-8 90 \
                          --slave   /usr/bin/g++       g++       /usr/bin/g++-8 \
@@ -52,21 +57,24 @@ sudo update-alternatives --install /usr/bin/gcc       gcc       /usr/bin/gcc-10 
                          --slave   /usr/bin/gcov      gcov      /usr/bin/gcov-10
 
 # Nvidia GPU software for computation
-sudo wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-sudo RUN dpkg -i cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-
-sudo apt-get -qq update && \
-sudo apt-get -qq install -y cuda-toolkit-10-2 cuda-tools-10-2 cuda-compiler-10-2 \
-         cuda-libraries-10-2 cuda-libraries-dev-10-2 libnvidia-compute-450
-
+# See https://docs.nvidia.com/hpc-sdk/index.html for Nvidia install instructions
+sudo wget -q https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
+sudo wget -q https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
+sudo apt-get install ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb
 sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
 
 # If Software updater prompts, install updated software --> wait ....
 
-PATH=/usr/local/cuda-10.2/bin:/usr/local/cuda-10.2/NsightCompute-2019.1${PATH:+:${PATH}}
-LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export NVARCH=`uname -s`_`uname -m`
+export NVCOMPILERS=/opt/nvidia/hpc_sdk
+export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
+export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
 
-git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
+#Put these in your dotfiles:
+
+echo "export NVARCH=`uname -s`_`uname -m`"
+echo "export NVCOMPILERS=/opt/nvidia/hpc_sdk"
+echo "export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man"
+echo "export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH"
 
 cd Chapter11; #make

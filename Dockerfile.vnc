@@ -140,6 +140,7 @@ RUN update-alternatives \
     chmod u+s /usr/bin/update-alternatives
 
 # Nvidia GPU software for computation
+# See https://docs.nvidia.com/hpc-sdk/index.html for Nvidia install instructions
 RUN wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
 RUN wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
 RUN DEBIAN_FRONTEND=noninteractive \
