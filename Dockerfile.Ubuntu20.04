@@ -1,6 +1,6 @@
 # Part of the examples from the Parallel and High Performance Computing
 # Robey and Zamora, Manning Publications
-#   https://github.com/EssentialsofParallelComputing/Chapter5
+#   https://github.com/EssentialsofParallelComputing/Chapter11
 #
 # The built image can be found at:
 #
@@ -16,6 +16,20 @@ ARG DOCKER_LANG=en_US
 ARG DOCKER_TIMEZONE=America/Denver
 
 WORKDIR /tmp
+RUN apt-get -qq update && \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get -qq install -y locales tzdata && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=$DOCKER_LANG.UTF-8 \
+    LANGUAGE=$DOCKER_LANG:UTF-8
+
+RUN ln -fs /usr/share/zoneinfo/$DOCKER_TIMEZONE /etc/localtime && \
+    locale-gen $LANG && update-locale LANG=$LANG && \
+    dpkg-reconfigure -f noninteractive locales tzdata
+
+ENV LC_ALL=$DOCKER_LANG.UTF-8
+
 RUN apt-get -qq update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
@@ -64,10 +78,17 @@ RUN usermod -a -G video chapter11
 WORKDIR /home/chapter11
 RUN chown -R chapter11:chapter11 /home/chapter11
 USER chapter11
+
+ENV LANG='en_US.UTF-8'
+ENV DISPLAY=:0 \
+    NVIDIA_VISIBLE_DEVICES=all \
+    NVIDIA_DRIVER_CAPABILITIES=display,graphics,utility,compute
+
 ENV NVARCH=Linux_x86_64
 ENV NVCOMPILERS=/opt/nvidia/hpc_sdk
 ENV MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
 ENV PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64
 
 RUN git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
 

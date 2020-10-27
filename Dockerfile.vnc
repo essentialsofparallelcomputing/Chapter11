@@ -96,6 +96,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 # Also, fix issue with Shift-Tab not working
 # https://askubuntu.com/questions/839842/vnc-pressing-shift-tab-tab-only
 RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
     apt-get install -y libxtst-dev libssl-dev libjpeg-dev && \
     \
     mkdir -p /tmp/x11vnc-0.9.14 && \
@@ -192,6 +193,11 @@ ENV NVARCH=Linux_x86_64
 ENV NVCOMPILERS=/opt/nvidia/hpc_sdk
 ENV MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
 ENV PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64
+
+ENV DISPLAY=:0
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=display,graphics,utility,compute
 
 RUN git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
 
