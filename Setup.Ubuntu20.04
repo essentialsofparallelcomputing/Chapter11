@@ -2,28 +2,29 @@
 # Sets up Ubuntu 20.04 from bare-bones installation 
 # Comment out what you don't need or run line-by-line, manually
 sudo apt-get -qq update && \
-export DEBIAN_FRONTEND=noninteractive \
-sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
+    DEBIAN_FRONTEND=noninteractive \
+    sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
        libnuma1 python3 wget
 
+# Installing latest GCC compiler (version 10)
 sudo apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
                             gcc-10 g++-10 gfortran-10
 
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 90 \
-                         --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
-                         --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-8 \
-                         --slave /usr/bin/gcov gcov /usr/bin/gcov-8
-
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 80 \
-                         --slave /usr/bin/g++ g++ /usr/bin/g++-9 \
-                         --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-9 \
-                         --slave /usr/bin/gcov gcov /usr/bin/gcov-9
-
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 70 \
-                         --slave /usr/bin/g++ g++ /usr/bin/g++-10 \
-                         --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-10 \
-                         --slave /usr/bin/gcov gcov /usr/bin/gcov-10
-
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-8       90 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-8          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-8     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-8
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-9       80 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-9          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-9     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-9
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-10      70 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-10         \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-10    \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-10
 sudo chmod u+s /usr/bin/update-alternatives
 
 # Nvidia GPU software for computation
@@ -39,13 +40,15 @@ export NVARCH=Linux_x86_64
 export NVCOMPILERS=/opt/nvidia/hpc_sdk
 export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
 export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64
 
 #Put these in your dotfiles:
 
-echo "export NVARCH=`uname -s`_`uname -m`"
+echo "export NVARCH=Linux_x86_64"
 echo "export NVCOMPILERS=/opt/nvidia/hpc_sdk"
 echo "export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man"
 echo "export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH"
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64"
 
-make clean
-make
+#make clean
+#make

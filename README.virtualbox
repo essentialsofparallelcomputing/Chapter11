@@ -1,4 +1,4 @@
-# These are instructions to setup a Ubuntu virtual machine for the examples in
+# These are instructions to setup an Ubuntu virtual machine for the examples in
 # this chapter. The first part of the instructions must be done manually. The
 # last half can be done by executing this file as a script as instructed.
 
@@ -31,50 +31,55 @@
 # git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter11.git
 # Run the script Chapter11/README.virtualbox
 
-DEBIAN_FRONTEND=noninteractive
 sudo apt-get -qq update && \
-sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
-             wget gnupg-agent && \
-sudo apt-get clean && \
-sudo rm -rf /var/lib/apt/lists/*
+    DEBIAN_FRONTEND=noninteractive \
+    sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common \
+       libnuma1 python3 wget
 
-# Installing latest GCC compiler (version 8) for best vectorization
-sudo apt-get -qq update && \
+# Installing latest GCC compiler (version 10)
 sudo apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
-                            gcc-9 g++-9 gfortran-9 \
-                            gcc-10 g++-10 gfortran-10 && \
-sudo apt-get clean && \
-sudo rm -rf /var/lib/apt/lists/*
+                            gcc-10 g++-10 gfortran-10
 
-sudo update-alternatives --install /usr/bin/gcc       gcc       /usr/bin/gcc-8 90 \
-                         --slave   /usr/bin/g++       g++       /usr/bin/g++-8 \
-                         --slave   /usr/bin/gfortran  gfortran  /usr/bin/gfortran-8 \
-                         --slave   /usr/bin/gcov      gcov      /usr/bin/gcov-8
-
-sudo update-alternatives --install /usr/bin/gcc       gcc       /usr/bin/gcc-10 70 \
-                         --slave   /usr/bin/g++       g++       /usr/bin/g++-10 \
-                         --slave   /usr/bin/gfortran  gfortran  /usr/bin/gfortran-10 \
-                         --slave   /usr/bin/gcov      gcov      /usr/bin/gcov-10
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-8       90 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-8          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-8     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-8
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-9       80 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-9          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-9     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-9
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-10      70 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-10         \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-10    \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-10
+sudo chmod u+s /usr/bin/update-alternatives
 
 # Nvidia GPU software for computation
 # See https://docs.nvidia.com/hpc-sdk/index.html for Nvidia install instructions
-sudo wget -q https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
-sudo wget -q https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
-sudo apt-get install ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb
+
 sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
 
 # If Software updater prompts, install updated software --> wait ....
 
-export NVARCH=`uname -s`_`uname -m`
+export NVARCH=Linux_x86_64
 export NVCOMPILERS=/opt/nvidia/hpc_sdk
 export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
 export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64
 
 #Put these in your dotfiles:
 
-echo "export NVARCH=`uname -s`_`uname -m`"
+echo "export NVARCH=Linux_x86_64"
 echo "export NVCOMPILERS=/opt/nvidia/hpc_sdk"
 echo "export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man"
 echo "export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH"
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${NVCOMPILERS}/${NVARCH}/20.9/cuda/11.0/extras/CUPTI/lib64"
 
 cd Chapter11; #make
